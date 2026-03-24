@@ -1,0 +1,58 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get version
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: ArkTS Patterns ${{ steps.version.outputs.VERSION }}
+          body: |
+            ## What's Changed
+
+            See [benchmark.md](./benchmark.md) for quality metrics.
+
+            ## Installation
+
+            ```bash
+            # Method 1: Clone to skills directory
+            git clone https://github.com/your-username/arkts-patterns.git ~/.claude/skills/arkts-patterns
+
+            # Method 2: Download and extract
+            curl -L https://github.com/your-username/arkts-patterns/archive/${{ steps.version.outputs.VERSION }}.tar.gz | tar xz
+            mv arkts-patterns-${{ steps.version.outputs.VERSION }} ~/.claude/skills/arkts-patterns
+            ```
+
+            ## Patterns Covered
+            - @State, @Prop, @Link state management
+            - @Observed/@ObjectLink for nested objects
+            - TaskPool concurrency
+            - UIAbility lifecycle
+            - Navigation with NavPathStack
+            - HTTP client with interceptors
+            - RDB data persistence
+            - Animations and gestures
+            - Error recovery with exponential backoff
+          files: |
+            SKILL.md
+            README.md
+            LICENSE
+            benchmark.md
+          draft: false
+          prerelease: false
