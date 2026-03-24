@@ -32,10 +32,10 @@ jobs:
 
             ```bash
             # Method 1: Clone to skills directory
-            git clone https://github.com/your-username/arkts-patterns.git ~/.claude/skills/arkts-patterns
+            git clone https://github.com/OpeNopEn2007/arkts-patterns.git ~/.claude/skills/arkts-patterns
 
             # Method 2: Download and extract
-            curl -L https://github.com/your-username/arkts-patterns/archive/${{ steps.version.outputs.VERSION }}.tar.gz | tar xz
+            curl -L https://github.com/OpeNopEn2007/arkts-patterns/archive/${{ steps.version.outputs.VERSION }}.tar.gz | tar xz
             mv arkts-patterns-${{ steps.version.outputs.VERSION }} ~/.claude/skills/arkts-patterns
             ```
 

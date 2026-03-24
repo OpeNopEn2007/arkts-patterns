@@ -25,7 +25,7 @@
 /plugin
 
 # Navigate to Marketplaces → Add Marketplace
-# Enter: github.com/your-username/arkts-patterns
+# Enter: github.com/OpeNopEn2007/arkts-patterns
 ```
 
 ### Method 2: Manual Installation
@@ -33,7 +33,7 @@
 ```bash
 # Clone to skills directory
 mkdir -p ~/.claude/skills/
-git clone https://github.com/your-username/arkts-patterns.git ~/.claude/skills/arkts-patterns
+git clone https://github.com/OpeNopEn2007/arkts-patterns.git ~/.claude/skills/arkts-patterns
 ```
 
 ### Method 3: Direct Path
