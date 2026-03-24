@@ -33,7 +33,7 @@ Application
 └── ExtensionAbility (Background services)
 ```
 
-**Key Concept**: HarmonyOS uses **Stage Model** where UIAbility is the primary UI component. See [Ability Architecture](../knowledge-base/architecture/ability.md) for details.
+**Key Concept**: HarmonyOS uses **Stage Model** where UIAbility is the primary UI component. See [Ability Architecture](../../knowledge-base/architecture/ability.md) for details.
 
 ---
 
@@ -160,7 +160,7 @@ navPathStack.pop()
 - **Global State**: AppStorage, LocalStorage
 - **Best Practices**: Minimize state, choose correct decorator
 
-📖 [State Management Details](../knowledge-base/patterns/state-management.md)
+📖 [State Management Details](../../knowledge-base/patterns/state-management.md)
 
 ### 2. Decorators Reference
 - **Component**: @Component, @Entry, @Reusable
@@ -168,7 +168,7 @@ navPathStack.pop()
 - **Cross-level**: @Provide/@Consume, @Observed/@ObjectLink
 - **Storage**: @StorageLink, @LocalStorageLink
 
-📖 [Decorators Reference](../knowledge-base/language/decorators.md)
+📖 [Decorators Reference](../../knowledge-base/language/decorators.md)
 
 ### 3. Ability Architecture
 - **UIAbility**: Main UI component with lifecycle
@@ -176,41 +176,41 @@ navPathStack.pop()
 - **AbilityStage**: Module lifecycle management
 - **Context**: Access app resources and directories
 
-📖 [Ability Architecture](../knowledge-base/architecture/ability.md)
+📖 [Ability Architecture](../../knowledge-base/architecture/ability.md)
 
 ### 4. UI Components
 - **Design Principles**: Single responsibility, proper granularity
 - **Common Patterns**: Buttons, Lists, Forms, Dialogs, Loading states
 - **List Rendering**: ForEach, LazyForEach, List, ListItemGroup
 
-📖 [UI Components](../knowledge-base/patterns/ui-components.md)
+📖 [UI Components](../../knowledge-base/patterns/ui-components.md)
 
 ### 5. Networking
 - **HTTP Client**: @ohos.net.http encapsulation
 - **Patterns**: Interceptors, Error handling, Retry, Caching
 - **API Services**: Domain-specific API encapsulation
 
-📖 [Networking Patterns](../knowledge-base/patterns/networking.md)
+📖 [Networking Patterns](../../knowledge-base/patterns/networking.md)
 
 ### 6. Data Persistence
 - **Preferences**: Light-weight key-value storage
 - **RDB**: SQLite-based relational database
 - **Files**: Document storage and binary data
 
-📖 [Data Persistence](../knowledge-base/patterns/persistence.md)
+📖 [Data Persistence](../../knowledge-base/patterns/persistence.md)
 
 ### 7. Navigation
 - **Navigation Component**: Recommended navigation system
 - **NavDestination**: Page destinations
 - **Deep Link**: URL-based navigation
 
-📖 [Navigation Patterns](../knowledge-base/patterns/navigation.md)
+📖 [Navigation Patterns](../../knowledge-base/patterns/navigation.md)
 
 ### 8. Concurrency
 - **TaskPool**: CPU-intensive parallel tasks
 - **Worker**: Long-running background tasks
 
-📖 [Concurrency Patterns](../knowledge-base/language/concurrency.md)
+📖 [Concurrency Patterns](../../knowledge-base/language/concurrency.md)
 
 ### 9. Animation & Gestures
 - **Property Animation**: .animation() modifier
@@ -218,7 +218,41 @@ navPathStack.pop()
 - **Transitions**: Component enter/exit animations
 - **Gestures**: Tap, LongPress, Pan, Pinch, Rotation
 
-📖 [Animation & Gestures](../knowledge-base/patterns/animation.md)
+📖 [Animation & Gestures](../../knowledge-base/patterns/animation.md)
+
+### 10. Project Templates
+
+#### EmptyAbility Official Template
+
+HarmonyOS Stage Model standard empty template (API 22 / SDK 6.0.2).
+
+**完整项目源码**: `../../empty-ability-template/` 目录包含可直接复制的项目模板
+
+**使用方法**:
+```bash
+cp -r ~/.claude/skills/arkts-patterns/empty-ability-template/ ./my-new-project/
+cd my-new-project
+ohpm install
+```
+
+**核心文件**:
+- `EntryAbility.ets` - Application entry with full lifecycle
+- `EntryBackupAbility.ets` - Data backup extension
+- `Index.ets` - Main page demonstrating @Entry/@Component/@State
+
+**配置**:
+- `app.json5` - Application-level config (bundleName, version)
+- `module.json5` - Module config (abilities, extensionAbilities)
+- `build-profile.json5` - Build config (targetSdkVersion)
+- `code-linter.json5` - Code standards (security rules)
+
+**Testing**: Hypium framework with local/instrumentation tests
+
+**创建后必须修改**:
+```json5
+// AppScope/app.json5
+{ "app": { "bundleName": "com.yourcompany.yourapp" } }
+```
 
 ---
 
@@ -427,4 +461,4 @@ hvigorw test
 - [HarmonyOS Developer Documentation](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-dev-guide-V5)
 - [ArkTS API Reference](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/arkts-apis-overview-V5)
 - [ArkUI Component Reference](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/arkui-overview-V5)
-- [Learning Resources](../knowledge-base/resources.md)
+- [Learning Resources](../../knowledge-base/resources.md)

@@ -1,0 +1,21 @@
+{
+  "name": "arkts-patterns",
+  "version": "2.2.0",
+  "description": "ArkTS development patterns for HarmonyOS NEXT (API 12+) - state management, navigation, networking, persistence, animations, and official EmptyAbility template",
+  "author": {
+    "name": "OpeNopEn2007",
+    "url": "https://github.com/OpeNopEn2007"
+  },
+  "repository": "https://github.com/OpeNopEn2007/arkts-patterns",
+  "license": "MIT",
+  "keywords": [
+    "arkts",
+    "harmonyos",
+    "harmonyos-next",
+    "huawei",
+    "state-management",
+    "declarative-ui",
+    "navigation",
+    "concurrency"
+  ]
+}

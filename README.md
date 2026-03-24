@@ -15,31 +15,29 @@
 - **Networking** - HTTP client with interceptors, error handling, retry mechanism
 - **Data Persistence** - Preferences (light-weight), RDB (SQLite)
 - **Animation & Gestures** - animateTo, PinchGesture, RotationGesture, PanGesture
+- **Project Templates** - EmptyAbility official template with complete source code
 
 ## Installation
 
-### Method 1: Claude Code Plugin (Recommended)
+### Method 1: Clone to Plugins Directory (Recommended)
 
 ```bash
-# In Claude Code
-/plugin
-
-# Navigate to Marketplaces → Add Marketplace
-# Enter: github.com/OpeNopEn2007/arkts-patterns
+# Clone to Claude Code plugins directory
+git clone https://github.com/OpeNopEn2007/arkts-patterns.git ~/.claude/plugins/arkts-patterns
 ```
 
-### Method 2: Manual Installation
+### Method 2: Development Mode
 
 ```bash
-# Clone to skills directory
-mkdir -p ~/.claude/skills/
-git clone https://github.com/OpeNopEn2007/arkts-patterns.git ~/.claude/skills/arkts-patterns
+# Use directly from local directory
+claude --plugin-dir /path/to/arkts-patterns
 ```
 
-### Method 3: Direct Path
+### Method 3: Symlink (For Development)
 
 ```bash
-claude --skill-path /path/to/arkts-patterns
+# Create symlink from your development directory
+ln -s /path/to/arkts-patterns ~/.claude/plugins/arkts-patterns
 ```
 
 ## Usage
@@ -74,6 +72,7 @@ The skill automatically activates when:
 | Animation & Gestures | Interactive UI | ✅ |
 | @Observed/@ObjectLink | Nested object observation | ✅ |
 | Error Recovery | Retry with backoff | ✅ |
+| **EmptyAbility Template** | Official project template | ✅ |
 
 ## Benchmark Results
 
@@ -87,24 +86,36 @@ See [benchmark.md](./benchmark.md) for detailed results.
 
 ```
 arkts-patterns/
-├── SKILL.md                    # Main skill file
-├── README.md                   # This file
-├── LICENSE                     # MIT License
 ├── .claude-plugin/
-│   └── marketplace.json        # Marketplace config
-└── knowledge-base/             # Reference documentation
-    ├── architecture/
-    │   └── ability.md
-    ├── language/
-    │   ├── decorators.md
-    │   └── concurrency.md
-    └── patterns/
-        ├── state-management.md
-        ├── ui-components.md
-        ├── networking.md
-        ├── persistence.md
-        ├── navigation.md
-        └── animation.md
+│   └── plugin.json              # Plugin manifest
+├── skills/
+│   └── arkts-patterns/
+│       └── SKILL.md             # Main skill file
+├── knowledge-base/              # Reference documentation
+│   ├── architecture/
+│   │   └── ability.md
+│   ├── language/
+│   │   ├── decorators.md
+│   │   └── concurrency.md
+│   ├── patterns/
+│   │   ├── state-management.md
+│   │   ├── ui-components.md
+│   │   ├── networking.md
+│   │   ├── persistence.md
+│   │   ├── navigation.md
+│   │   └── animation.md
+│   └── templates/               # Template documentation
+│       └── empty-ability/
+├── empty-ability-template/      # Complete HarmonyOS project template
+│   ├── AppScope/                # App-level config and resources
+│   ├── entry/                   # Main module (HAP)
+│   │   └── src/main/ets/
+│   │       ├── entryability/    # EntryAbility.ets
+│   │       ├── entrybackupability/  # EntryBackupAbility.ets
+│   │       └── pages/           # Index.ets
+│   └── ...
+├── README.md                    # This file
+└── LICENSE                      # MIT License
 ```
 
 ## Requirements
