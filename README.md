@@ -1,7 +1,7 @@
 # ArkTS Patterns - Claude Code Skill
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Claude Code](https://img.shields.io/badge/Claude_Code-Skill-blue.svg)](https://claude.ai/code)
+[![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-blue.svg)](https://claude.ai/code)
 [![HarmonyOS](https://img.shields.io/badge/HarmonyOS-NEXT_API_12+-red.svg)](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-dev-guide-V5)
 
 > Production-ready ArkTS development patterns for HarmonyOS NEXT applications. **100% benchmark pass rate.**
@@ -19,25 +19,26 @@
 
 ## Installation
 
-### Method 1: Clone to Plugins Directory (Recommended)
+### Method 1: From Marketplace (Recommended)
 
 ```bash
-# Clone to Claude Code plugins directory
+# Add the marketplace
+/plugin marketplace add OpeNopEn2007/opencc-plugins
+
+# Install the plugin
+/plugin install arkts-patterns@OpeNopEn
+```
+
+### Method 2: Clone to Plugins Directory
+
+```bash
 git clone https://github.com/OpeNopEn2007/arkts-patterns.git ~/.claude/plugins/arkts-patterns
 ```
 
-### Method 2: Development Mode
+### Method 3: Development Mode
 
 ```bash
-# Use directly from local directory
 claude --plugin-dir /path/to/arkts-patterns
-```
-
-### Method 3: Symlink (For Development)
-
-```bash
-# Create symlink from your development directory
-ln -s /path/to/arkts-patterns ~/.claude/plugins/arkts-patterns
 ```
 
 ## Usage
