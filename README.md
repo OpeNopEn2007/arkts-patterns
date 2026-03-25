@@ -26,7 +26,7 @@
 /plugin marketplace add OpeNopEn2007/opencc-plugins
 
 # Install the plugin
-/plugin install arkts-patterns@OpeNopEn
+/plugin install arkts-patterns@opencc-plugins
 ```
 
 ### Method 2: Clone to Plugins Directory
