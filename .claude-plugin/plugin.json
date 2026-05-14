@@ -1,7 +1,7 @@
 {
   "name": "arkts-patterns",
-  "version": "2.2.0",
-  "description": "ArkTS development patterns for HarmonyOS NEXT (API 12+) - state management, navigation, networking, persistence, animations, and official EmptyAbility template",
+  "version": "2.3.0",
+  "description": "ArkTS development patterns for HarmonyOS NEXT (API 12+) - state management, navigation, networking, persistence, animations, concurrency, official EmptyAbility template with scaffold tool",
   "author": {
     "name": "OpeNopEn2007",
     "url": "https://github.com/OpeNopEn2007"

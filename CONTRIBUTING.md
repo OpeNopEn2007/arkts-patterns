@@ -79,15 +79,22 @@ For new ArkTS patterns:
 
 ```
 arkts-patterns/
-├── SKILL.md              # Main skill file (DO NOT rename)
+├── .claude-plugin/
+│   └── plugin.json       # Plugin manifest
+├── skills/arkts-patterns/  # Skill directory (standard layout)
+│   ├── SKILL.md          # Main skill file (Layer 1-2, ~490 lines)
+│   ├── references/       # Layer 3: 27 topic reference docs
+│   │   ├── README.md     # Topic index
+│   │   ├── RESOURCES.md  # External learning resources
+│   │   └── templates/    # EmptyAbility template documentation
+│   ├── scripts/
+│   │   └── scaffold.sh   # Project scaffolding tool
+│   └── empty-ability-template/  # Complete Stage Model project template
 ├── README.md             # GitHub documentation
-├── benchmark.md          # Quality metrics
-├── knowledge-base/       # Reference documentation
-│   ├── architecture/     # Ability, Stage model
-│   ├── language/         # Decorators, concurrency
-│   └── patterns/         # Implementation patterns
-└── .claude-plugin/
-    └── marketplace.json  # Marketplace config
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+└── benchmark.md          # Quality metrics
 ```
 
 ## Questions?

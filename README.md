@@ -8,14 +8,14 @@
 
 ## Features
 
-- **State Management** - @State, @Prop, @Link, @Provide/@Consume, @Observed/@ObjectLink
+- **State Management** - @State, @Prop, @Link, @Provide/@Consume, @Observed/@ObjectLink, V2 decorators
 - **Component Lifecycle** - aboutToAppear, aboutToDisappear, UIAbility lifecycle
 - **Concurrency** - TaskPool for CPU-intensive tasks, Worker for background processing
-- **Navigation** - NavPathStack + NavDestination (recommended over @ohos.router)
-- **Networking** - HTTP client with interceptors, error handling, retry mechanism
-- **Data Persistence** - Preferences (light-weight), RDB (SQLite)
-- **Animation & Gestures** - animateTo, PinchGesture, RotationGesture, PanGesture
-- **Project Templates** - EmptyAbility official template with complete source code
+- **Navigation** - NavPathStack + NavDestination (recommended over @ohos.router), RouterService pattern
+- **Networking** - HTTP client with interceptors, error handling, retry mechanism, RCP
+- **Data Persistence** - Preferences (light-weight), RDB (SQLite), Repository pattern
+- **Animation & Gestures** - animateTo, PinchGesture, RotationGesture, PanGesture, gesture combinations
+- **Project Scaffolding** - EmptyAbility template + `scaffold.sh` script for rapid project creation
 
 ## Installation
 
@@ -88,34 +88,22 @@ See [benchmark.md](./benchmark.md) for detailed results.
 ```
 arkts-patterns/
 ├── .claude-plugin/
-│   └── plugin.json              # Plugin manifest
-├── skills/
-│   └── arkts-patterns/
-│       └── SKILL.md             # Main skill file
-├── knowledge-base/              # Reference documentation
-│   ├── architecture/
-│   │   └── ability.md
-│   ├── language/
-│   │   ├── decorators.md
-│   │   └── concurrency.md
-│   ├── patterns/
-│   │   ├── state-management.md
-│   │   ├── ui-components.md
-│   │   ├── networking.md
-│   │   ├── persistence.md
-│   │   ├── navigation.md
-│   │   └── animation.md
-│   └── templates/               # Template documentation
-│       └── empty-ability/
-├── empty-ability-template/      # Complete HarmonyOS project template
-│   ├── AppScope/                # App-level config and resources
-│   ├── entry/                   # Main module (HAP)
-│   │   └── src/main/ets/
-│   │       ├── entryability/    # EntryAbility.ets
-│   │       ├── entrybackupability/  # EntryBackupAbility.ets
-│   │       └── pages/           # Index.ets
-│   └── ...
+│   └── plugin.json              # Plugin manifest (v2.3.0)
+├── skills/arkts-patterns/       # Skill directory (standard layout)
+│   ├── SKILL.md                 # Main skill file (~490 lines)
+│   ├── references/              # Layer 3: 27 topic docs + templates + RESOURCES
+│   │   ├── README.md            # Topic index
+│   │   ├── RESOURCES.md         # External learning resources
+│   │   ├── 01-getting-started.md ~ 27-api-references.md
+│   │   └── templates/           # EmptyAbility template docs
+│   ├── scripts/
+│   │   └── scaffold.sh          # Quick project scaffolding tool
+│   └── empty-ability-template/  # Complete Stage Model project template (35 files)
 ├── README.md                    # This file
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── SECURITY.md
+├── benchmark.md
 └── LICENSE                      # MIT License
 ```
 

@@ -1,22 +1,47 @@
 ---
 name: arkts-patterns
-description: ArkTS development patterns for HarmonyOS NEXT (API 12+) - declarative UI (@Component, @State, @Prop, @Link), state management (@Provide/@Consume, AppStorage, LocalStorage), component lifecycle (aboutToAppear, aboutToDisappear), TaskPool/Worker concurrency, Ability architecture, Navigation routing, HTTP networking, data persistence, animations and gestures. Use when writing HarmonyOS applications, ArkTS components, reviewing ArkTS code, refactoring HarmonyOS apps, or discussing any ArkTS/HarmonyOS development topic.
+description: MUST use this skill whenever writing, reviewing, refactoring, or discussing any HarmonyOS NEXT or ArkTS code. Covers declarative UI (@Component, @State, @Prop, @Link), state management (@Provide/@Consume, AppStorage, LocalStorage, V2), component lifecycle (aboutToAppear, aboutToDisappear), TaskPool/Worker concurrency, UIAbility/ExtensionAbility architecture, Navigation routing (NavPathStack + NavDestination), HTTP networking with interceptors, data persistence (Preferences, RDB, Repository), animations, gestures, and the official EmptyAbility project template with scaffold tool. Triggers on keywords like HarmonyOS, ArkTS, ArkUI, @Component, @State, UIAbility, Navigation, TaskPool, ohos, or any request to build HarmonyOS/Huawei apps.
 ---
 
 # ArkTS Development Patterns
 
 Development patterns and best practices for building HarmonyOS NEXT applications with ArkTS.
 
-## When to Activate
+---
 
-- Writing new ArkTS/HarmonyOS code
-- Reviewing or refactoring ArkTS code
-- Designing ArkTS components and state management
-- Implementing Ability architecture
-- Setting up Navigation routing
-- Creating network requests or data persistence
-- Adding animations or gestures
-- Debugging ArkTS state synchronization issues
+## Project Template (EmptyAbility)
+
+The `empty-ability-template/` directory contains a complete HarmonyOS NEXT Stage Model project template (API 22 / SDK 6.0.2). **Use this template when creating new projects.**
+
+### Quick Start
+
+```bash
+# Method 1: Scaffold script (recommended)
+bash scripts/scaffold.sh ./my-new-app com.yourcompany.yourapp
+
+# Method 2: Manual copy
+cp -r empty-ability-template/ ./my-new-app/
+cd my-new-app && ohpm install
+```
+
+### Core Files
+
+| File | Purpose |
+|------|---------|
+| `entry/.../EntryAbility.ets` | Application entry with full UIAbility lifecycle |
+| `entry/.../EntryBackupAbility.ets` | Data backup/restore extension |
+| `entry/.../pages/Index.ets` | Main page demonstrating @Entry/@Component/@State |
+| `AppScope/app.json5` | App-level config (`bundleName`, `version`, `icon`) |
+| `entry/.../module.json5` | Module config (`abilities`, `extensionAbilities`) |
+| `build-profile.json5` | Build config (`targetSdkVersion`) |
+
+### Post-Creation Checklist
+
+1. Update `bundleName` and `vendor` in `AppScope/app.json5`
+2. Run `ohpm install` to fetch dependencies
+3. Open in DevEco Studio for development
+
+See [Template Documentation](references/templates/empty-ability/README.md) for detailed file-by-file reference.
 
 ---
 
@@ -33,7 +58,8 @@ Application
 └── ExtensionAbility (Background services)
 ```
 
-**Key Concept**: HarmonyOS uses **Stage Model** where UIAbility is the primary UI component. See [Ability Architecture](../../knowledge-base/architecture/ability.md) for details.
+**Key Concept**: HarmonyOS uses **Stage Model** where UIAbility is the primary UI component.
+📖 [应用模型 (Ability Kit)](references/02-application-model.md)
 
 ---
 
@@ -157,102 +183,112 @@ navPathStack.pop()
 
 ### 1. State Management
 - **Decorators**: @State, @Prop, @Link, @Provide/@Consume, @Observed/@ObjectLink
-- **Global State**: AppStorage, LocalStorage
-- **Best Practices**: Minimize state, choose correct decorator
+- **Global State**: AppStorage, LocalStorage, PersistentStorage
+- **V2 Decorators (API 12+)**: @ComponentV2, @Local, @Param, @Event, @ObservedV2, @Trace
+- **Best Practices**: Minimize state, choose correct decorator, use @Track for precision
 
-📖 [State Management Details](../../knowledge-base/patterns/state-management.md)
+📖 [状态管理](references/04-state-management.md)
 
-### 2. Decorators Reference
-- **Component**: @Component, @Entry, @Reusable
-- **State**: @State, @Prop, @Link, @Watch
-- **Cross-level**: @Provide/@Consume, @Observed/@ObjectLink
-- **Storage**: @StorageLink, @LocalStorageLink
-
-📖 [Decorators Reference](../../knowledge-base/language/decorators.md)
-
-### 3. Ability Architecture
-- **UIAbility**: Main UI component with lifecycle
-- **ExtensionAbility**: Background services (Form, WorkScheduler, etc.)
+### 2. Application Model (Ability Kit)
+- **UIAbility**: Main UI component with lifecycle, launch modes (singleton/standard/multiton)
+- **ExtensionAbility**: Background services (Form, Service, Backup, DataShare, etc.)
 - **AbilityStage**: Module lifecycle management
-- **Context**: Access app resources and directories
+- **Context**: Access app resources and directories (filesDir, cacheDir, etc.)
 
-📖 [Ability Architecture](../../knowledge-base/architecture/ability.md)
+📖 [应用模型](references/02-application-model.md)
+
+### 3. ArkTS Language
+- **Declarative UI**: @Component, @Entry, @Reusable, build()
+- **Lifecycle**: aboutToAppear, aboutToDisappear, onPageShow, onPageHide
+- **UI Builders**: @Builder, @BuilderParam (slots), @Styles, @Extend
+- **Coding Standards**: Naming conventions, code organization, migration from TypeScript
+
+📖 [ArkTS 语言](references/03-arkts-language.md)
 
 ### 4. UI Components
-- **Design Principles**: Single responsibility, proper granularity
-- **Common Patterns**: Buttons, Lists, Forms, Dialogs, Loading states
-- **List Rendering**: ForEach, LazyForEach, List, ListItemGroup
+- **Layouts**: Row/Column, Stack, Flex, RelativeContainer, GridRow/GridCol
+- **Common Components**: Button, Text, TextInput, Image, List
+- **List Rendering**: ForEach, LazyForEach, ListItemGroup
+- **Design Patterns**: Single responsibility, LoadingContainer, Skeleton, FormField, EmptyState
+- **Component Encapsulation**: CustomButton (type/size variants), SearchBar, FormValidator
 
-📖 [UI Components](../../knowledge-base/patterns/ui-components.md)
+📖 [UI 组件与布局](references/05-ui-components.md)
 
-### 5. Networking
-- **HTTP Client**: @ohos.net.http encapsulation
-- **Patterns**: Interceptors, Error handling, Retry, Caching
-- **API Services**: Domain-specific API encapsulation
-
-📖 [Networking Patterns](../../knowledge-base/patterns/networking.md)
-
-### 6. Data Persistence
-- **Preferences**: Light-weight key-value storage
-- **RDB**: SQLite-based relational database
-- **Files**: Document storage and binary data
-
-📖 [Data Persistence](../../knowledge-base/patterns/persistence.md)
-
-### 7. Navigation
+### 5. Navigation
 - **Navigation Component**: Recommended navigation system
-- **NavDestination**: Page destinations
-- **Deep Link**: URL-based navigation
+- **NavPathStack**: Page stack operations (pushPathByName, pop, replacePathByName)
+- **NavDestination**: Page destination with 8 lifecycle hooks
+- **RouterService Pattern**: Singleton wrapper for navigation operations
+- **Tab Navigation**: Tabs + TabContent for bottom tab bars
+- **System Route Table**: route_map.json configuration
 
-📖 [Navigation Patterns](../../knowledge-base/patterns/navigation.md)
+📖 [导航路由](references/06-navigation.md)
 
-### 8. Concurrency
-- **TaskPool**: CPU-intensive parallel tasks
-- **Worker**: Long-running background tasks
+### 6. Animation & Gestures
+- **Property Animation**: .animation() modifier with Curve options
+- **Explicit Animation**: animateTo() with chain animations via Promise
+- **Transitions**: Component enter/exit, TransitionEffect presets
+- **Gestures**: Tap, LongPress, Pan, Pinch, Rotation, Swipe, GestureGroup
+- **Gesture Conflict Resolution**: priorityGesture, parallelGesture, GestureMask
+- **Performance**: Use transform properties (scale/rotate) over width/height
 
-📖 [Concurrency Patterns](../../knowledge-base/language/concurrency.md)
+📖 [动画与手势](references/07-animation-gestures.md)
 
-### 9. Animation & Gestures
-- **Property Animation**: .animation() modifier
-- **Explicit Animation**: animateTo() function
-- **Transitions**: Component enter/exit animations
-- **Gestures**: Tap, LongPress, Pan, Pinch, Rotation
+### 7. Networking
+- **HTTP Client**: @ohos.net.http encapsulation with interceptors
+- **Patterns**: Request/Response interceptors, Token injection, Signing
+- **Error Handling**: ErrorHandler with code mapping, ErrorCodeInterceptor
+- **Retry Mechanism**: Exponential backoff with jitter
+- **Cache**: Memory cache with TTL, CachedHttpClient
+- **API Services**: Domain-specific service classes (UserApi, DataApi)
+- **WebSocket**: Reconnection with exponential backoff
+- **RCP**: Remote Communication Protocol (next-gen networking API)
 
-📖 [Animation & Gestures](../../knowledge-base/patterns/animation.md)
+📖 [网络通信](references/08-networking.md)
 
-### 10. Project Templates
+### 8. Data Persistence
+- **Preferences**: Light-weight key-value storage, PreferencesUtil singleton
+- **RDB**: SQLite relational database, Repository pattern (CRUD operations)
+- **KV Store**: Distributed key-value database
+- **File Storage**: Text/binary file operations, JSON serialization
+- **Migration**: Database version management with PRAGMA
 
-#### EmptyAbility Official Template
+📖 [数据持久化](references/09-data-persistence.md)
 
-HarmonyOS Stage Model standard empty template (API 22 / SDK 6.0.2).
+### 9. Concurrency
+- **TaskPool**: CPU-intensive parallel tasks, auto thread pool management
+- **Worker**: Long-running background tasks, independent thread
+- **Selection Guide**: TaskPool (< 3 min, CPU-bound) vs Worker (long-running, continuous)
+- **Anti-patterns**: Blocking UI thread, task granularity, missing cancellation/error handling
 
-**完整项目源码**: `../../empty-ability-template/` 目录包含可直接复制的项目模板
+📖 [并发 (TaskPool/Worker)](references/10-concurrency.md)
 
-**使用方法**:
-```bash
-cp -r ~/.claude/skills/arkts-patterns/empty-ability-template/ ./my-new-project/
-cd my-new-project
-ohpm install
-```
+---
 
-**核心文件**:
-- `EntryAbility.ets` - Application entry with full lifecycle
-- `EntryBackupAbility.ets` - Data backup extension
-- `Index.ets` - Main page demonstrating @Entry/@Component/@State
+## References Index (Layer 3)
 
-**配置**:
-- `app.json5` - Application-level config (bundleName, version)
-- `module.json5` - Module config (abilities, extensionAbilities)
-- `build-profile.json5` - Build config (targetSdkVersion)
-- `code-linter.json5` - Code standards (security rules)
+For detailed reference documentation on specific topics, consult the `references/` directory:
 
-**Testing**: Hypium framework with local/instrumentation tests
+| # | Topic | # | Topic |
+|---|-------|---|-------|
+| 01 | [Getting Started](references/01-getting-started.md) | 15 | [Background Tasks](references/15-background-tasks.md) |
+| 02 | [Application Model](references/02-application-model.md) | 16 | [Connectivity](references/16-connectivity.md) |
+| 03 | [ArkTS Language](references/03-arkts-language.md) | 17 | [Distributed](references/17-distributed.md) |
+| 04 | [State Management](references/04-state-management.md) | 18 | [Media](references/18-media.md) |
+| 05 | [UI Components](references/05-ui-components.md) | 19 | [Accessibility](references/19-accessibility.md) |
+| 06 | [Navigation](references/06-navigation.md) | 20 | [Performance](references/20-performance.md) |
+| 07 | [Animation & Gestures](references/07-animation-gestures.md) | 21 | [Debugging & Testing](references/21-debugging-testing.md) |
+| 08 | [Networking](references/08-networking.md) | 22 | [Tooling](references/22-tooling.md) |
+| 09 | [Data Persistence](references/09-data-persistence.md) | 23 | [Adaptive Layout](references/23-adaptive-layout.md) |
+| 10 | [Concurrency](references/10-concurrency.md) | 24 | [Publishing](references/24-publishing.md) |
+| 11 | [Permissions & Security](references/11-permissions-security.md) | 25 | [App Package](references/25-app-package.md) |
+| 12 | [Window & Screen](references/12-window-screen.md) | 26 | [NDK Development](references/26-ndk.md) |
+| 13 | [File Management](references/13-file-management.md) | 27 | [API References](references/27-api-references.md) |
+| 14 | [I18n & Localization](references/14-i18n-localization.md) | | |
 
-**创建后必须修改**:
-```json5
-// AppScope/app.json5
-{ "app": { "bundleName": "com.yourcompany.yourapp" } }
-```
+Additional resources:
+- [Templates](references/templates/README.md) - EmptyAbility template documentation
+- [Learning Resources](references/RESOURCES.md) - External open-source projects and tutorials
 
 ---
 
@@ -331,6 +367,36 @@ try {
 }
 ```
 
+### 6. UI Operation in onCreate
+```typescript
+// ❌ Bad: UI not yet created in onCreate
+onCreate(): void {
+  AppStorage.setOrCreate('uiReady', true)
+}
+
+// ✅ Good: Wait for onWindowStageCreate
+onWindowStageCreate(windowStage: window.WindowStage): void {
+  windowStage.loadContent('pages/Index', () => {
+    AppStorage.setOrCreate('uiReady', true)
+  })
+}
+```
+
+### 7. Forgetting Resource Cleanup in onBackground
+```typescript
+// ❌ Bad: Resources still occupied in background
+onBackground(): void {
+  // Nothing done
+}
+
+// ✅ Good: Release background resources
+onBackground(): void {
+  this.mediaPlayer?.pause()
+  this.locationService?.stop()
+  this.saveCurrentState()
+}
+```
+
 ---
 
 ## Code Generation Guidelines
@@ -351,54 +417,6 @@ Rationale:
 - Generated code exceeds 500 lines
 - Explicit multi-file structure requested
 
-**Example - Single File with All Patterns:**
-```typescript
-// Single file containing: Model + Service + Component + Usage
-// UserModel.ets
-
-// 1. Model
-@Observed
-export class User {
-  id: number = 0
-  name: string = ''
-  email: string = ''
-}
-
-// 2. Service
-export class UserService {
-  private static instance: UserService
-  static getInstance(): UserService { ... }
-
-  async fetchUsers(): Promise<User[]> { ... }
-}
-
-// 3. Component
-@Component
-export struct UserList {
-  @State users: User[] = []
-  @State loading: boolean = false
-
-  aboutToAppear() {
-    this.loadUsers()
-  }
-
-  private async loadUsers() { ... }
-
-  build() {
-    // UI implementation
-  }
-}
-
-// 4. Page Entry (if needed)
-@Entry
-@Component
-struct UserListPage {
-  build() {
-    UserList()
-  }
-}
-```
-
 ### Component Naming Convention
 
 | Type | Pattern | Example |
@@ -412,28 +430,23 @@ struct UserListPage {
 
 ## Project Structure
 
+See `empty-ability-template/` for the complete reference project. Key directories:
+
 ```
 MyApp/
-├── AppScope/
-│   ├── app.json5              # App config
-│   └── resources/             # Global resources
-├── entry/                     # Main module
-│   ├── src/main/
-│   │   ├── ets/
-│   │   │   ├── entryability/
-│   │   │   │   └── EntryAbility.ets
-│   │   │   ├── pages/         # @Entry pages
-│   │   │   ├── components/    # @Component widgets
-│   │   │   ├── models/        # Data models
-│   │   │   ├── services/      # API services
-│   │   │   ├── repositories/  # Data access
-│   │   │   └── utils/         # Utilities
-│   │   └── resources/
-│   ├── build-profile.json5
-│   └── module.json5
-├── features/                  # Feature modules
-├── commons/                   # Shared modules
-└── hvigor/                    # Build scripts
+├── AppScope/app.json5        # App config (bundleName required)
+├── entry/src/main/
+│   ├── ets/
+│   │   ├── entryability/     # UIAbility entry
+│   │   ├── pages/            # @Entry pages
+│   │   ├── components/       # @Component widgets
+│   │   ├── models/           # Data models
+│   │   ├── services/         # API/HTTP services
+│   │   ├── repositories/     # Data access (RDB)
+│   │   └── utils/            # Utilities
+│   └── resources/            # Module resources
+├── build-profile.json5       # Build config
+└── module.json5              # Module declaration
 ```
 
 ---
@@ -441,6 +454,9 @@ MyApp/
 ## Build Commands
 
 ```bash
+# Scaffold new project
+bash scripts/scaffold.sh <target-dir> <bundle-name>
+
 # Install dependencies
 ohpm install
 
@@ -461,4 +477,4 @@ hvigorw test
 - [HarmonyOS Developer Documentation](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-dev-guide-V5)
 - [ArkTS API Reference](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/arkts-apis-overview-V5)
 - [ArkUI Component Reference](https://developer.huawei.com/consumer/cn/doc/harmonyos-references-V5/arkui-overview-V5)
-- [Learning Resources](../../knowledge-base/resources.md)
+- [Learning Resources](references/RESOURCES.md) - Open-source projects and tutorials

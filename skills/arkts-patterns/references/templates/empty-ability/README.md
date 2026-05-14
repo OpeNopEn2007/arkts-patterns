@@ -10,19 +10,26 @@ HarmonyOS NEXT Stage 模型标准空白模板，由 DevEco Studio 生成。
 
 ## 直接使用模板
 
-完整的项目源码位于 skill 根目录的 `../../empty-ability-template/` 目录，可以直接复制使用：
+完整的项目源码位于 skill 目录下的 `../../../empty-ability-template/`。
+
+### 方式一：使用 scaffold.sh 脚本（推荐）
+
+```bash
+# 运行脚手架脚本
+bash scripts/scaffold.sh /path/to/your-new-project com.yourcompany.yourapp
+
+cd /path/to/your-new-project
+ohpm install
+```
+
+### 方式二：手动复制
 
 ```bash
 # 复制模板到目标目录
-cp -r ~/.claude/skills/arkts-patterns/empty-ability-template/ /path/to/your-new-project/
+cp -r empty-ability-template/ /path/to/your-new-project/
 
-# 进入项目目录
 cd /path/to/your-new-project
-
-# 安装依赖
 ohpm install
-
-# 在 DevEco Studio 中打开项目
 ```
 
 ### 创建新项目后必须修改

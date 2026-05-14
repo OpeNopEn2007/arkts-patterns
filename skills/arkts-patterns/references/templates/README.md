@@ -10,7 +10,12 @@ HarmonyOS NEXT 项目模板集合，提供官方标准模板和最佳实践。
 
 HarmonyOS Stage 模型标准空白模板 (API 22 / SDK 6.0.2)。
 
-**完整源码位置**: `../../empty-ability-template/` (skill 根目录下)
+**完整源码位置**: `../../empty-ability-template/` (skill 目录下)
+
+**脚手架脚本**: 使用 `scripts/scaffold.sh` 快速创建新项目：
+```bash
+bash scripts/scaffold.sh ./my-new-app com.yourcompany.yourapp
+```
 
 **适用场景**:
 - 新项目起步
@@ -31,19 +36,22 @@ HarmonyOS Stage 模型标准空白模板 (API 22 / SDK 6.0.2)。
 
 ## 快速创建项目
 
-直接复制模板到目标目录：
+### 方式一：使用 scaffold.sh 脚本（推荐）
 
 ```bash
-# 复制模板
-cp -r ~/.claude/skills/arkts-patterns/empty-ability-template/ ./my-new-app/
+# 一键创建并配置
+bash scripts/scaffold.sh ./my-new-app com.yourcompany.yourapp
 
-# 进入项目
 cd my-new-app
-
-# 安装依赖
 ohpm install
+```
 
-# 用 DevEco Studio 打开
+### 方式二：手动复制
+
+```bash
+cp -r empty-ability-template/ ./my-new-app/
+cd my-new-app
+ohpm install
 ```
 
 创建后记得修改 `AppScope/app.json5` 中的 `bundleName`。
@@ -97,6 +105,9 @@ ohpm install
 
 ## 扩展阅读
 
-- [Ability 生命周期](../architecture/ability.md)
-- [状态管理装饰器](../language/decorators.md)
-- [UI 组件模式](../patterns/ui-components.md)
+- [应用模型 (Ability Kit)](../02-application-model.md)
+- [ArkTS 语言与装饰器](../03-arkts-language.md)
+- [状态管理](../04-state-management.md)
+- [UI 组件与布局](../05-ui-components.md)
+- [导航路由](../06-navigation.md)
+- [并发 (TaskPool/Worker)](../10-concurrency.md)
