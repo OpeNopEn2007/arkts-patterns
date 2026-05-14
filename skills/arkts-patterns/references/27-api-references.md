@@ -322,10 +322,36 @@
 
 ## 使用说明
 
-本文件是 Agent 可读的 HarmonyOS API 参考索引：
+华为 API 文档页面全部为 Angular 动态渲染，`WebFetch` 无法读取。Agent 获取 API 细节使用以下两种途径：
 
-- **核心 Kit**（Ability / ArkUI / ArkTS / ArkData）包含完整 API 模块名（如 `@ohos.data.preferences`），Agent 可直接用模块名在 DevEco Studio 或 Playwright 中定位具体 API
-- **其他 Kit** 提供入口链接，Agent 可通过 Playwright 访问对应页面查看子模块
-- 所有链接指向华为官方最新版（非归档 -V5 版本）
-- 页面左上角可筛选 API version/设备/元服务API集
-- DevEco Studio 内使用 `Ctrl+Q` 查看具体接口签名
+### 途径 1: DevEco Studio 离线文档（推荐）
+
+DevEco Studio 自带离线 API 文档，为纯 HTML 文件，Agent 可直接 Read：
+
+```
+<DevEco Studio 安装目录>/sdk/<版本>/docs/
+```
+
+在 IDE 中选中模块名（如 `@ohos.data.preferences`）按 `Ctrl+Q` 即可查看接口签名。
+
+### 途径 2: Playwright MCP（无需 DevEco Studio）
+
+每个模块名对应一个官方文档 URL，规则为：
+
+```
+https://developer.huawei.com/consumer/cn/doc/harmonyos-references/js-apis-{模块名去掉@和/ohos./app.，替换为kebab-case}
+```
+
+例：
+| 模块名 | 文档 URL |
+|--------|----------|
+| `@ohos.data.preferences` | `js-apis-data-preferences` |
+| `@ohos.app.ability.UIAbility` | `js-apis-app-ability-uiability` |
+| `@ohos.taskpool` | `js-apis-taskpool` |
+| `@ohos.arkui.StateManagement` | `js-apis-statemanagement` |
+
+使用 Playwright MCP 打开并提取 `#mark` 元素内容即可获得完整 API 文档。
+
+### 途径 3: 直接浏览官网
+
+在浏览器中打开 <https://developer.huawei.com/consumer/cn/doc/harmonyos-references/development-intro-api>，左侧导航树可逐级展开到任意模块。页面支持 API version/设备筛选。
