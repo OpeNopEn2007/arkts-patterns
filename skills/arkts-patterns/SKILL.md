@@ -472,6 +472,61 @@ hvigorw test
 
 ---
 
+## Fetching Live API Documentation
+
+Huawei's official API docs are rendered by Angular — `WebFetch` returns an empty shell. To access actual API signatures, the agent MUST use Playwright (or DevEco Studio's offline docs).
+
+### Step 1: Check for Playwright MCP
+
+Before attempting to fetch any API docs, check your available tools. Look for tools named like `mcp__plugin_playwright_playwright__browser_navigate`.
+
+**If NOT available**, tell the user:
+
+> 获取 HarmonyOS API 文档需要 Playwright MCP 插件。请运行:
+> ```
+> /plugin install playwright@claude-plugins-official
+> ```
+> 安装完成后重新开始对话即可。
+
+**If available**, proceed to Step 2.
+
+### Step 2: Construct the documentation URL
+
+Each API module has a documentation page at:
+
+```
+https://developer.huawei.com/consumer/cn/doc/harmonyos-references/{page-name}
+```
+
+The `{page-name}` is derived by removing the `@ohos.`/`@arkts.` prefix, lower-casing, replacing dots with hyphens, and prefixing `js-apis-`:
+- `@ohos.data.preferences` → `js-apis-data-preferences`
+- `@ohos.taskpool` → `js-apis-taskpool`
+
+See `references/27-api-references.md` for the full module index with ~100+ entries.
+
+### Step 3: Fetch and extract with Playwright
+
+```bash
+# Navigate to the API doc page
+mcp__plugin_playwright_playwright__browser_navigate https://developer.huawei.com/consumer/cn/doc/harmonyos-references/{page-name}
+
+# Wait for Angular to render (3 seconds is usually enough)
+mcp__plugin_playwright_playwright__browser_wait_for time=3
+
+# Extract the actual API content from #mark element
+mcp__plugin_playwright_playwright__browser_evaluate function="() => document.querySelector('#mark')?.innerText || 'No content'"
+```
+
+The `#mark` element contains the full rendered API documentation: class/interface signatures, method parameters, return types, error codes, and code examples.
+
+### Step 4: Fall back if Playwright is unavailable
+
+If the user cannot install Playwright:
+- Tell them to open the URL in a browser directly
+- Or use DevEco Studio's built-in offline API docs (`Ctrl+Q` on any API symbol)
+
+---
+
 ## Resources
 
 - [HarmonyOS Developer Documentation](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-dev-guide-V5)
