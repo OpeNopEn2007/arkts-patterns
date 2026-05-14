@@ -1,6 +1,6 @@
 # API 参考 (API References)
 
-> 本索引基于华为官方 API 参考目录整理。所有链接指向最新版文档（HarmonyOS 6.0）。
+> 本索引基于 2026-05-14 华为官方最新版文档提取。核心 Kit 包含完整 API 模块列表（模块名 + 中文描述 + 页码）。
 > 官方入口: <https://developer.huawei.com/consumer/cn/doc/harmonyos-references/development-intro-api>
 
 ---
@@ -9,160 +9,323 @@
 
 | 文档 | 说明 |
 |------|------|
-| [API参考概述](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/development-intro-api) | 版本说明、系统能力、接口导入方式、权限、错误码等总览 |
-| [系统能力SystemCapability使用指南](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/syscap) | SysCap 机制说明，判断设备是否支持某接口 |
-| [通用错误码](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-universal) | 所有 Kit 公用的错误码定义 |
+| [API参考概述](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/development-intro-api) | 版本说明、系统能力、接口导入、权限、错误码等总览 |
+| [系统能力SystemCapability使用指南](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/syscap) | SysCap 机制，判断设备是否支持某接口 |
+| [通用错误码](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/errorcode-universal) | 所有 Kit 公用的错误码 |
 
 ---
 
-## 应用框架
+## 应用框架 — Ability Kit（程序框架服务）
 
-| Kit / 模块 | 链接 |
-|------------|------|
-| Ability Kit（程序框架服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ability-api) |
-| Accessibility Kit（无障碍服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/accessibility-api) |
-| ArkData（方舟数据管理） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkdata-api) |
-| ArkTS（方舟编程语言） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-api) |
-| ArkUI（方舟UI框架） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkui-api) |
-| ArkWeb（方舟Web） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkweb-api) |
-| Background Tasks Kit（后台任务开发服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/background-tasks-api) |
-| Content Embed Kit（内容嵌入服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/content-embed-api) |
-| Core File Kit（文件基础服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/core-file-api) |
-| Data Augmentation Kit（数据增强服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/data-augmentation-api) |
-| Form Kit（卡片开发服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/form-api) |
-| IME Kit（输入法开发服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ime-api) |
-| IPC Kit（进程间通信服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ipc-api) |
-| Localization Kit（本地化开发服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/localization-api) |
-| UI Design Kit（UI设计套件） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ui-design-api) |
+> 入口: [ability-api](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ability-api)
+> ArkTS API: [ability-arkts](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ability-arkts)
+
+### Stage模型能力的接口 → [stage-model](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/stage-model)
+
+| 模块名 | 说明 |
+|--------|------|
+| `@ohos.app.ability.UIAbility` | 带界面的应用组件 |
+| `@ohos.app.ability.AbilityStage` | AbilityStage 组件管理器 |
+| `@ohos.app.ability.Ability` | Ability 基类 |
+| `@ohos.app.ability.AbilityConstant` | Ability 相关常量 |
+| `@ohos.app.ability.abilityLifecycleCallback` | UIAbility 生命周期回调监听器 |
+| `@ohos.app.ability.common` | Ability 公共模块 |
+| `@ohos.app.ability.contextConstant` | Context 相关常量 |
+| `@ohos.app.ability.application` | 应用工具类 |
+| `@ohos.app.ability.StartOptions` | startAbility 的可选参数 |
+| `@ohos.app.ability.OpenLinkOptions` | openLink 的可选参数 |
+| `@ohos.app.ability.CompletionHandler` | 拉起应用结果的操作类 |
+| `@ohos.app.ability.EmbeddableUIAbility` | 可嵌入式 UIAbility 组件 |
+| `@ohos.app.ability.UIExtensionAbility` | 带界面的 ExtensionAbility 组件 |
+| `@ohos.app.ability.UIExtensionContentSession` | 带界面扩展能力的界面操作类 |
+| `@ohos.app.ability.ExtensionAbility` | 扩展能力基类 |
+| `@ohos.app.ability.ActionExtensionAbility` | 支持业务操作自定义的 ExtensionAbility |
+| `@ohos.app.ability.EmbeddedUIExtensionAbility` | 跨进程界面嵌入的 ExtensionAbility |
+| `@ohos.app.ability.ShareExtensionAbility` | 支持分享详情页接入的 ExtensionAbility |
+| `@ohos.app.ability.PhotoEditorExtensionAbility` | 支持图片编辑能力的 ExtensionAbility |
+| `@ohos.app.ability.AppServiceExtensionAbility` | 应用后台服务扩展组件 |
+| `@ohos.app.ability.EnvironmentCallback` | 系统环境变化监听器 |
+| `@ohos.app.ability.ApplicationStateChangeCallback` | 应用进程状态变化监听器 |
+| `@ohos.app.ability.ChildProcess` | 子进程基类 |
+| `@ohos.app.ability.ChildProcessArgs` | 子进程参数 |
+| `@ohos.app.ability.childProcessManager` | 子进程管理 |
+| `@ohos.app.ability.insightIntent` | 意图框架基础定义 |
+| `@ohos.app.ability.InsightIntentContext` | 意图执行上下文 |
+| `@ohos.app.ability.InsightIntentExecutor` | 意图执行基类 |
+| `@ohos.app.ability.InsightIntentDecorator` | 意图装饰器定义 |
+| `@ohos.app.ability.systemConfiguration` | 系统环境模块 |
+| `@ohos.app.ability.autoFillManager` | 自动填充框架 |
+| `@ohos.app.ability.autoStartupManager` | 开机自启管理能力 |
+| `@ohos.app.ability.AtomicServiceOptions` | openAtomicService 可选参数 |
+| `@ohos.app.ability.sendableContextManager` | sendable 上下文管理 |
+| `@ohos.app.appstartup.StartupConfig` | 启动框架配置信息 |
+| `@ohos.app.appstartup.StartupTask` | 启动框架任务 |
+| `@ohos.app.appstartup.startupManager` | 启动框架管理能力 |
+| `@ohos.app.agent.AgentExtensionAbility` | 智能体扩展组件 |
+| `@ohos.app.ability.AgentUIExtensionAbility` | 带界面的智能体拓展组件 |
+| `@ohos.continuation.continuationManager` | 流转/协同管理 |
+
+### 通用能力的接口(推荐) → [both-models](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/both-models)
+### FA模型能力的接口 → [fa-model](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/fa-model)
+### 接口依赖的元素及定义 → [ability-api-interface-depend](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ability-api-interface-depend)
+### 已停止维护的接口 → [ability-arkts-dep](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ability-arkts-dep)
+
+---
+
+## 应用框架 — ArkUI（方舟UI框架）
+
+> 入口: [arkui-api](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkui-api)
+> ArkTS API: [arkui-arkts](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkui-arkts)
+
+### UI界面 → [ui](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ui)
+
+| 模块名 | 说明 |
+|--------|------|
+| `@ohos.arkui.StateManagement` | 状态管理（@State/@Prop/@Link/@Observed 等） |
+| `@ohos.arkui.UIContext` | UI 上下文 |
+| `@ohos.arkui.inspector` | 布局回调 |
+| `@ohos.arkui.node` | 自定义节点 |
+| `@ohos.arkui.shape` | 形状 |
+| `@ohos.arkui.componentSnapshot` | 组件截图 |
+| `@ohos.arkui.componentUtils` | componentUtils |
+| `@ohos.arkui.dragController` | DragController |
+| `@ohos.arkui.drawableDescriptor` | DrawableDescriptor |
+| `@ohos.arkui.observer` | 无感监听 |
+| `@ohos.arkui.Prefetcher` | Prefetching |
+| `@ohos.arkui.theme` | 主题换肤 |
+| `@ohos.arkui.uiExtension` | uiExtension |
+| `@ohos.animator` | 动画 |
+| `@ohos.curves` | 插值计算 |
+| `@ohos.font` | 注册自定义字体 |
+| `@ohos.matrix4` | 矩阵变换 |
+| `@ohos.measure` | 文本计算 |
+| `@ohos.mediaquery` | 媒体查询 |
+| `@ohos.pluginComponent` | PluginComponentManager |
+| `@ohos.promptAction` | 弹窗 |
+| `@ohos.router` | 页面路由（不推荐，建议用 Navigation） |
+| `@ohos.uiAppearance` | 用户界面外观 |
+| `getContext` | 获取上下文 |
+| `postCardAction` | 卡片操作 |
+
+另外包含所有 ArkUI 内置组件和属性参考（[ui-interface-arkui](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ui-interface-arkui)），详见每个组件的 API 页面。
+
+### 窗口管理 → [window-manager-api](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/window-manager-api)
+### 屏幕管理 → [display-manager-api](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/display-manager-api)
+
+---
+
+## 应用框架 — ArkTS（方舟编程语言）
+
+> 入口: [arkts-api](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-api)
+> ArkTS API: [arkts-arkts](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkts-arkts)
+
+| 模块名 | 说明 |
+|--------|------|
+| `@ohos.taskpool` | 启动任务池（TaskPool） |
+| `@ohos.worker` | 启动一个 Worker |
+| `@ohos.util` | util 工具函数 |
+| `@ohos.util.ArrayList` | 线性容器 ArrayList |
+| `@ohos.util.Deque` | 线性容器 Deque |
+| `@ohos.util.HashMap` | 非线性容器 HashMap |
+| `@ohos.util.HashSet` | 非线性容器 HashSet |
+| `@ohos.util.LightWeightMap` | 非线性容器 LightWeightMap |
+| `@ohos.util.LightWeightSet` | 非线性容器 LightWeightSet |
+| `@ohos.util.LinkedList` | 线性容器 LinkedList |
+| `@ohos.util.List` | 线性容器 List |
+| `@ohos.util.PlainArray` | 非线性容器 PlainArray |
+| `@ohos.util.Queue` | 线性容器 Queue |
+| `@ohos.util.Stack` | 线性容器 Stack |
+| `@ohos.util.TreeMap` | 非线性容器 TreeMap |
+| `@ohos.util.TreeSet` | 非线性容器 TreeSet |
+| `@ohos.util.json` | JSON 解析与生成 |
+| `@ohos.util.stream` | 数据流基类 stream |
+| `@ohos.buffer` | Buffer |
+| `@ohos.convertxml` | xml 转换 JavaScript |
+| `@ohos.fastbuffer` | FastBuffer |
+| `@ohos.process` | 获取进程相关的信息 |
+| `@ohos.uri` | URI 字符串解析 |
+| `@ohos.url` | URL 字符串解析 |
+| `@ohos.xml` | XML 解析与生成 |
+| `@arkts.collections` | ArkTS 容器集 |
+| `@arkts.lang` | ArkTS 语言基础能力 |
+| `@arkts.math.Decimal` | 高精度数学库 Decimal |
+| `@arkts.utils` | ArkTS 工具库 |
+
+---
+
+## 应用框架 — ArkData（方舟数据管理）
+
+> 入口: [arkdata-api](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkdata-api)
+> ArkTS API: [arkdata-arkts](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkdata-arkts)
+
+| 模块名 | 说明 |
+|--------|------|
+| `@ohos.data.preferences` | 用户首选项 |
+| `@ohos.data.relationalStore` | 关系型数据库 (SQLite) |
+| `@ohos.data.distributedKVStore` | 分布式键值数据库 |
+| `@ohos.data.distributedDataObject` | 分布式数据对象 |
+| `@ohos.data.sendablePreferences` | 共享用户首选项 |
+| `@ohos.data.sendableRelationalStore` | 共享关系型数据库 |
+| `@ohos.data.dataShare` | 数据共享 |
+| `@ohos.data.dataSharePredicates` | 数据共享谓词 |
+| `@ohos.data.commonType` | 数据通用类型 |
+| `@ohos.data.ValuesBucket` | 数据集 |
+| `@ohos.data.unifiedDataChannel` | 标准化数据通路 |
+| `@ohos.data.uniformDataStruct` | 标准化数据结构 |
+| `@ohos.data.uniformTypeDescriptor` | 标准化数据定义与描述 |
+| `@ohos.data.intelligence` | 智慧数据平台 |
+| `@ohos.data.cloudData` | 端云服务 |
+| `@ohos.data.dataAbility` | DataAbility 谓词 |
+
+---
+
+## 应用框架 — 其他 Kit
+
+| Kit | 入口 |
+|-----|------|
+| [Accessibility Kit（无障碍服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/accessibility-api) | 无障碍服务 API |
+| [ArkWeb（方舟Web）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkweb-api) | Web 组件能力 |
+| [Background Tasks Kit（后台任务开发服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/background-tasks-api) | 短时/长时/延迟任务 |
+| [Content Embed Kit（内容嵌入服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/content-embed-api) | 内容嵌入 |
+| [Core File Kit（文件基础服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/core-file-api) | 沙箱文件、备份恢复 |
+| [Data Augmentation Kit（数据增强服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/data-augmentation-api) | 数据增强 |
+| [Form Kit（卡片开发服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/form-api) | 服务卡片/元服务卡片 |
+| [IME Kit（输入法开发服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ime-api) | 输入法框架 |
+| [IPC Kit（进程间通信服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ipc-api) | 进程间通信 |
+| [Localization Kit（本地化开发服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/localization-api) | i18n 本地化 |
+| [UI Design Kit（UI设计套件）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ui-design-api) | UI 设计 |
 
 ---
 
 ## 系统
 
-| 分类 | 链接 |
+| 分类 | 入口 |
 |------|------|
-| 安全（Universal Keystore Kit 等） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-security-api) |
-| 网络（Network Kit 等） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-network-api) |
-| 基础功能（基础服务 Kit 等） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-basicfun-api) |
-| 硬件 | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-hardware-api) |
-| 调测调优 | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-debug-optimize-api) |
+| [安全](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-security-api) | Universal Keystore Kit、Asset Store Kit 等 |
+| [网络](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-network-api) | Network Kit（HTTP、Socket、WebSocket、RCP） |
+| [基础功能](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-basicfun-api) | 基础服务 Kit（时间时区、公共事件等） |
+| [硬件](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-hardware-api) | 传感器、USB、电源管理 |
+| [调测调优](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/system-debug-optimize-api) | HiLog、HiTrace、性能监测 |
 
 ---
 
 ## 媒体
 
-| Kit / 模块 | 链接 |
-|------------|------|
-| Audio Kit（音频服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/audio-api) |
-| AVCodec Kit（音视频编解码服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/avcodec-api) |
-| AVSession Kit（音视频播控服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/avsession-api) |
-| Camera Kit（相机服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/camera-api) |
-| DRM Kit（数字版权保护服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/drm-api) |
-| Image Kit（图片处理服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/image-api) |
-| Media Kit（媒体服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/media-api) |
-| Media Library Kit（媒体文件管理服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/media-library-api) |
-| Ringtone Kit（铃声服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ringtone-api) |
-| Scan Kit（统一扫码服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scan-api) |
+| Kit | 入口 |
+|-----|------|
+| [Audio Kit（音频服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/audio-api) | 音频播放/录制 |
+| [AVCodec Kit（音视频编解码服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/avcodec-api) | 音视频编解码 |
+| [AVSession Kit（音视频播控服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/avsession-api) | 音视频会话管理 |
+| [Camera Kit（相机服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/camera-api) | 相机预览、拍照、录像 |
+| [DRM Kit（数字版权保护服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/drm-api) | 数字版权保护 |
+| [Image Kit（图片处理服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/image-api) | PixelMap、图像编解码 |
+| [Media Kit（媒体服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/media-api) | AVPlayer、AVRecorder |
+| [Media Library Kit（媒体文件管理服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/media-library-api) | PhotoPicker、相册 |
+| [Ringtone Kit（铃声服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ringtone-api) | 铃声管理 |
+| [Scan Kit（统一扫码服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scan-api) | 扫码 |
 
 ---
 
 ## 图形
 
-| Kit / 模块 | 链接 |
-|------------|------|
-| AR Engine（AR引擎服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ar-engine-api) |
-| ArkGraphics 2D（方舟2D图形服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkgraphics-api) |
-| ArkGraphics 3D（方舟3D图形） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkgraphics-3d-api) |
-| Graphics Accelerate Kit（图形加速服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/graphics-accelerate-api) |
-| Spatial Recon Kit（空间建模服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/spatial-recon-api) |
-| XEngine Kit（GPU加速引擎服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/xengine-api) |
+| Kit | 入口 |
+|-----|------|
+| [AR Engine（AR引擎服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ar-engine-api) | AR 引擎 |
+| [ArkGraphics 2D（方舟2D图形服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkgraphics-api) | 2D 绘制、字体 |
+| [ArkGraphics 3D（方舟3D图形）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/arkgraphics-3d-api) | 3D 图形 |
+| [Graphics Accelerate Kit（图形加速服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/graphics-accelerate-api) | Vulkan、OpenGL、ABR |
+| [Spatial Recon Kit（空间建模服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/spatial-recon-api) | 空间建模 |
+| [XEngine Kit（GPU加速引擎服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/xengine-api) | GPU 加速 |
 
 ---
 
 ## 应用服务
 
-| Kit / 模块 | 链接 |
-|------------|------|
-| Account Kit（华为账号服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/account-api) |
-| Ads Kit（广告服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ads-api) |
-| AppGallery Kit（应用市场服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/store-api) |
-| App Linking Kit（应用链接服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/app-linking-api) |
-| Calendar Kit（日历服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/calendar-api) |
-| Call Service Kit（通话服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/call-api) |
-| Cloud Foundation Kit（云开发服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/cloud-foundation-api) |
-| Contacts Kit（联系人服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/contacts-api) |
-| Enterprise Space Kit（企业数字空间服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/enterprise-space-api) |
-| File Manager Service Kit（文件管理服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/file-manager-service-api) |
-| Game Controller Kit（游戏控制器服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/game-controller-api) |
-| Game Service Kit（游戏服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/game-service-api) |
-| Health Service Kit（运动健康服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/health-service-api) |
-| IAP Kit（应用内支付服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/iap-api) |
-| Live View Kit（实况窗服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/live-view-api) |
-| Location Kit（位置服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/location-api) |
-| Map Kit（地图服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/map-api) |
-| Notification Kit（用户通知服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/notification-api) |
-| Payment Kit（鸿蒙支付服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/payment-api) |
-| PDF Kit（PDF服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/pdf-api) |
-| Preview Kit（文件预览服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/preview-api) |
-| Push Kit（推送服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/push-api) |
-| Reader Kit（阅读服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/reader-api) |
-| Scenario Fusion Kit（融合场景服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scenario-fusion-api) |
-| Screen Time Guard Kit（屏幕时间守护服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/screen-time-guard-api) |
-| Share Kit（分享服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/share-api) |
-| Wallet Kit（钱包服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/wallet-api) |
-| Weather Service Kit（天气服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/weather-service-api) |
+| Kit | 入口 |
+|-----|------|
+| [Account Kit（华为账号服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/account-api) | 华为账号一键登录 |
+| [Ads Kit（广告服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/ads-api) | 广告 |
+| [AppGallery Kit（应用市场服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/store-api) | 应用市场 |
+| [App Linking Kit（应用链接服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/app-linking-api) | 应用链接 |
+| [Calendar Kit（日历服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/calendar-api) | 日历 |
+| [Call Service Kit（通话服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/call-api) | 通话 |
+| [Cloud Foundation Kit（云开发服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/cloud-foundation-api) | 云开发 |
+| [Contacts Kit（联系人服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/contacts-api) | 联系人 |
+| [Enterprise Space Kit（企业数字空间服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/enterprise-space-api) | 企业空间 |
+| [File Manager Service Kit（文件管理服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/file-manager-service-api) | 文件管理 |
+| [Game Controller Kit（游戏控制器服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/game-controller-api) | 游戏控制器 |
+| [Game Service Kit（游戏服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/game-service-api) | 游戏服务 |
+| [Health Service Kit（运动健康服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/health-service-api) | 运动健康 |
+| [IAP Kit（应用内支付服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/iap-api) | 应用内支付 |
+| [Live View Kit（实况窗服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/live-view-api) | 实况窗 |
+| [Location Kit（位置服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/location-api) | 位置服务 |
+| [Map Kit（地图服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/map-api) | 地图 |
+| [Notification Kit（用户通知服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/notification-api) | 通知 |
+| [Payment Kit（鸿蒙支付服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/payment-api) | 鸿蒙支付 |
+| [PDF Kit（PDF服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/pdf-api) | PDF |
+| [Preview Kit（文件预览服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/preview-api) | 文件预览 |
+| [Push Kit（推送服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/push-api) | 推送 |
+| [Reader Kit（阅读服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/reader-api) | 阅读 |
+| [Scenario Fusion Kit（融合场景服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/scenario-fusion-api) | 融合场景 |
+| [Screen Time Guard Kit（屏幕时间守护服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/screen-time-guard-api) | 屏幕时间 |
+| [Share Kit（分享服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/share-api) | 分享 |
+| [Wallet Kit（钱包服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/wallet-api) | 钱包 |
+| [Weather Service Kit（天气服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/weather-service-api) | 天气 |
 
 ---
 
 ## AI
 
-| Kit / 模块 | 链接 |
-|------------|------|
-| Agent Framework Kit（智能体框架服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/harmony-agent-framework-api) |
-| CANN Kit（CANN异构计算框架服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/cann-api) |
-| Core Speech Kit（基础语音服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/core-speech-api) |
-| Core Vision Kit（基础视觉服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/core-vision-api) |
-| Intents Kit（意图框架服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/intents-api) |
-| Natural Language Kit（自然语言理解服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/natural-language-api) |
-| MindSpore Lite Kit（昇思推理框架服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/mindspore-lite-api) |
-| Neural Network Runtime Kit | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/neural-network-runtime-api) |
-| Speech Kit（场景化语音服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/speech-api) |
-| Vision Kit（场景化视觉服务） | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/vision-api) |
+| Kit | 入口 |
+|-----|------|
+| [Agent Framework Kit（智能体框架服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/harmony-agent-framework-api) | 智能体框架 |
+| [CANN Kit（CANN异构计算框架服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/cann-api) | CANN |
+| [Core Speech Kit（基础语音服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/core-speech-api) | 基础语音 |
+| [Core Vision Kit（基础视觉服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/core-vision-api) | 基础视觉 |
+| [Intents Kit（意图框架服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/intents-api) | 意图框架 |
+| [Natural Language Kit（自然语言理解服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/natural-language-api) | 自然语言 |
+| [MindSpore Lite Kit（昇思推理框架服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/mindspore-lite-api) | 昇思推理 |
+| [Neural Network Runtime Kit](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/neural-network-runtime-api) | Neural Network Runtime |
+| [Speech Kit（场景化语音服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/speech-api) | 场景化语音 |
+| [Vision Kit（场景化视觉服务）](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/vision-api) | 场景化视觉 |
 
 ---
 
 ## 公共基础能力
 
-| 分类 | 链接 |
+| 分类 | 入口 |
 |------|------|
-| ArkTS API | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/common-basic-arkts) |
-| C API | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/common-basic-c) |
+| [ArkTS API](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/common-basic-arkts) | 公共基础 ARTS API |
+| [C API](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/common-basic-c) | 公共基础 C API |
 
 ---
 
 ## 标准库 (NDK / C++)
 
-| 库 | 链接 |
+| 库 | 入口 |
 |----|------|
-| libc 标准库 (musl) | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/musl) |
-| c++ 标准库 | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/cpp) |
-| Node-API | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/napi) |
-| libuv | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/libuv) |
-| OpenSL ES | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/opensles) |
-| OpenGL ES | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/opengles) |
-| OpenGL | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/opengl) |
-| EGL | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/egl) |
-| ICU4C | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/icu4c) |
-| zlib | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/zlib) |
-| Vulkan | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/vulkan-guide) |
-| HiTSS | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/hitss-api-ref) |
-| 附录 | [查看](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/appendixes) |
+| [libc 标准库 (musl)](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/musl) | C 标准库 |
+| [c++ 标准库](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/cpp) | C++ 标准库 |
+| [Node-API](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/napi) | C/C++ 与 ArkTS 互调 |
+| [libuv](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/libuv) | 事件驱动库 |
+| [OpenSL ES](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/opensles) | 音频 |
+| [OpenGL ES](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/opengles) | 3D 图形 |
+| [OpenGL](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/opengl) | 3D 图形 |
+| [EGL](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/egl) | OpenGL ES 接口 |
+| [ICU4C](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/icu4c) | 国际化 |
+| [zlib](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/zlib) | 压缩 |
+| [Vulkan](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/vulkan-guide) | 3D 图形 API |
+| [HiTSS](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/hitss-api-ref) | 设备调测 |
+| [附录](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/appendixes) | 附录 |
 
 ---
 
-## 使用建议
+## 使用说明
 
-- 以上链接均为 HarmonyOS 官方 API 参考文档，指向最新版本
-- 可在页面左上角「高级筛选」中按 API version/设备/元服务API集过滤
-- 具体接口签名可直接在 DevEco Studio 中用 `Ctrl+Q` / `Command+Q` 查看
-- 本文件是官方目录的索引快照，API 在持续演进。需要最新信息请直接访问 [API参考首页](https://developer.huawei.com/consumer/cn/doc/harmonyos-references/development-intro-api)
+本文件是 Agent 可读的 HarmonyOS API 参考索引：
+
+- **核心 Kit**（Ability / ArkUI / ArkTS / ArkData）包含完整 API 模块名（如 `@ohos.data.preferences`），Agent 可直接用模块名在 DevEco Studio 或 Playwright 中定位具体 API
+- **其他 Kit** 提供入口链接，Agent 可通过 Playwright 访问对应页面查看子模块
+- 所有链接指向华为官方最新版（非归档 -V5 版本）
+- 页面左上角可筛选 API version/设备/元服务API集
+- DevEco Studio 内使用 `Ctrl+Q` 查看具体接口签名
