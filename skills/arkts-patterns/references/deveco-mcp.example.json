@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "deveco-codegenie": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@deveco-codegenie/mcp@beta"
+      ],
+      "env": {
+        "DEVECO_PATH": "<DEV_ECO_STUDIO_INSTALL_DIR>",
+        "DEVECO_SDK_HOME": "<DEV_ECO_SDK_ROOT>",
+        "PROJECT_PATH": "${workspaceFolder}"
+      }
+    }
+  }
+}

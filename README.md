@@ -1,5 +1,7 @@
 # ArkTS Patterns - Claude Code Skill
 
+[中文文档 (README-zh)](./README-zh.md)
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Claude Code](https://img.shields.io/badge/Claude_Code-Plugin-blue.svg)](https://claude.ai/code)
 [![HarmonyOS](https://img.shields.io/badge/HarmonyOS-NEXT_API_12+-red.svg)](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-dev-guide-V5)
@@ -16,6 +18,26 @@
 - **Data Persistence** - Preferences (light-weight), RDB (SQLite), Repository pattern
 - **Animation & Gestures** - animateTo, PinchGesture, RotationGesture, PanGesture, gesture combinations
 - **Project Scaffolding** - EmptyAbility template + `scaffold.sh` script for rapid project creation
+
+## v3 Architecture Direction
+
+`arkts-patterns` v3 positions the skill as an ArkTS/HarmonyOS agent-development orchestrator:
+
+- `SKILL.md` routes tasks between stable references, live tooling, verification, and fallback paths.
+- `references/` stores persistent engineering memory: stable ArkTS patterns, common mistakes, template rules, and offline fallback guidance.
+- DevEco MCP is the recommended live-tooling enhancement for current API lookup, ETS checks, project sync, build, app launch, UI tree inspection, UI actions, and UI verification.
+
+DevEco MCP is not a hard dependency for basic use. If MCP tools are unavailable, the skill should keep working from `references/` and clearly mark live checks, builds, or UI verification as not executed.
+
+When configuring or troubleshooting DevEco MCP, agents should first check the npm package page: [@deveco-codegenie/mcp](https://www.npmjs.com/package/@deveco-codegenie/mcp). The package README and current dist-tags take precedence over summarized guidance in this repository.
+
+### v3 Layers
+
+| Layer | Role |
+|-------|------|
+| Layer 1: `SKILL.md` orchestrator | Routes tasks, keeps the shortest safe path, and defines side-effect boundaries. |
+| Layer 2: DevEco MCP live tooling | Provides current SDK/API lookup and optional project/UI verification. |
+| Layer 3: `references/` engineering memory | Holds curated stable patterns and offline fallback guidance. |
 
 ## Installation
 
@@ -88,7 +110,7 @@ See [benchmark.md](./benchmark.md) for detailed results.
 ```
 arkts-patterns/
 ├── .claude-plugin/
-│   └── plugin.json              # Plugin manifest (v2.3.0)
+│   └── plugin.json              # Plugin manifest (v2.3.1)
 ├── skills/arkts-patterns/       # Skill directory (standard layout)
 │   ├── SKILL.md                 # Main skill file (~490 lines)
 │   ├── references/              # Layer 3: 27 topic docs + templates + RESOURCES
@@ -98,7 +120,7 @@ arkts-patterns/
 │   │   └── templates/           # EmptyAbility template docs
 │   ├── scripts/
 │   │   └── scaffold.sh          # Quick project scaffolding tool
-│   └── empty-ability-template/  # Complete Stage Model project template (35 files)
+│   └── empty-ability-template/  # Complete Stage Model project template
 ├── README.md                    # This file
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md
@@ -107,11 +129,37 @@ arkts-patterns/
 └── LICENSE                      # MIT License
 ```
 
+Reference docs live in `skills/arkts-patterns/references/` and are indexed by [skills/arkts-patterns/references/README.md](skills/arkts-patterns/references/README.md).
+
+## Minimal Usage Example
+
+When a task is small, use the shortest path: identify the core topic, open the matching reference, then generate one focused ArkTS skeleton.
+
+| Requirement | Reference Path | Expected Output |
+|-------------|----------------|-----------------|
+| Build a deletable todo list where a child component updates parent state | `references/04-state-management.md` + `references/05-ui-components.md` | Single-file `@Entry` page using `@State`, `@Link`, `List`, and immutable array updates |
+
+Prompt example:
+
+```text
+Create a HarmonyOS NEXT ArkTS todo list where each row is a child component and the child can delete itself from the parent list.
+```
+
 ## Requirements
 
 - HarmonyOS NEXT (API 12+)
 - DevEco Studio 4.0+
 - Claude Code CLI
+
+## Maintenance Check
+
+Run a quick docs integrity check before release:
+
+```powershell
+pwsh ./scripts/validate-docs.ps1
+```
+
+For command-line HarmonyOS build verification on Windows, make sure `DEVECO_SDK_HOME` points to the DevEco SDK root, for example `D:\DevEco Studio\sdk`, then stop the Hvigor daemon before retrying failed builds.
 
 ## Contributing
 

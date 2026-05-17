@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- Repositioned v3 documentation around `SKILL.md` orchestration, persistent `references/` engineering memory, and optional DevEco MCP live tooling with explicit fallback behavior.
+- Documented the v3 three-layer architecture: `SKILL.md` orchestrator, DevEco MCP live tooling, and curated `references/` engineering memory.
+- Updated tooling/API references to prefer DevEco MCP for current SDK/API and project verification, with offline references as fallback.
+- Added npm package-page lookup guidance for DevEco MCP so agents check the latest package README and dist-tags before configuring or troubleshooting.
+- Documented DevEco Studio/Hvigor CLI verification: ASCII-only project paths, `DEVECO_SDK_HOME` setup, daemon restart, and `BUILD SUCCESSFUL` acceptance criteria.
+- Added the DevEco Studio ASCII-path and Hvigor CLI environment requirements to the agent contract.
+- Corrected file-management guidance for DevEco Studio 6.1 by preferring fd-based text read/write with explicit UTF-8 decoding.
+- Added reusable ArkTSCheck warning guidance for throwing file cleanup APIs and resource-based UI colors.
+
+### Added
+- Added `skills/arkts-patterns/references/deveco-mcp.example.json` with placeholder-only DevEco MCP configuration using `@deveco-codegenie/mcp@beta`.
+- Added `docs/iterations/` as the case-learning dataset for real ArkTS/HarmonyOS experiments, including the first smart-device-control case record.
+- Added `docs/iterations/ITERATOR.md` as the standalone Case Learning Iterator guide, including clean-room skill experiments and acceptance-criteria discipline.
+
+## [2.3.1] - 2026-05-16
+
+### Changed
+- Bumped the plugin manifest to `2.3.1`
+- Aligned README structure notes with actual repository layout under `skills/arkts-patterns/`
+- Added a minimal README usage example that maps a user requirement to reference lookup and expected ArkTS output
+- Added a "Minimal Path (Fastest Usage)" section in `SKILL.md` to make the shortest execution path explicit
+- Added a minimal end-to-end example in `SKILL.md`: requirement -> reference lookup -> ArkTS skeleton output
+- Clarified references navigation contract in `references/README.md` to keep numbering and filenames consistent with `SKILL.md`
+- Added `scripts/validate-docs.ps1` to validate references numbering and required template/docs files
+- Documented pre-release docs validation command in README and templates index
+
 ## [2.3.0] - 2026-05-14
 
 ### Added
@@ -95,6 +124,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[2.3.1]: https://github.com/OpeNopEn2007/arkts-patterns/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/OpeNopEn2007/arkts-patterns/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/OpeNopEn2007/arkts-patterns/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/OpeNopEn2007/arkts-patterns/releases/tag/v2.1.0

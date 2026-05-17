@@ -1,9 +1,22 @@
-# HarmonyOS NEXT 开发文档参考
+# HarmonyOS NEXT 工程模式参考
 
-> 本文档整理了 HarmonyOS NEXT (API 12) 官方开发指南的核心链接和内容摘要。
+> 本目录是 `arkts-patterns` 的持久工程记忆层，保留稳定、高价值、模型容易出错的 ArkTS/HarmonyOS 工程模式。
+> 它不是完整官方文档镜像；最新 API、SDK 行为和工具链差异应优先通过 DevEco MCP 或官方文档实时确认。
 > 原始文档来源: [HarmonyOS 应用开发导读 V5](https://developer.huawei.com/consumer/cn/doc/harmonyos-guides-V5/application-dev-guide-V5)
 
+## 定位
+
+`references/` 是 v3 三层架构中的 Layer 3：精选工程记忆层。它用于沉淀稳定模式、反复踩坑点、模板约束和离线兜底，而不是追逐所有最新 API 细节。
+
+使用优先级：
+
+1. 实现模式、代码骨架、常见反模式：优先读取本目录对应主题。
+2. 最新 API 签名、SDK 差异、工具链行为：优先使用 DevEco MCP；不可用时再用 `27-api-references.md` 定位官方文档。
+3. 构建、启动、UI 检查：优先使用 DevEco MCP；不可用时记录未执行项，并请求用户提供 DevEco Studio/Hvigor 输出或截图。
+
 ## 目录
+
+> 导航约定：主导航以本文件为准；`SKILL.md` 中的章节编号与文件名（`01`-`27`）必须与这里保持一致。
 
 | 编号 | 分类 | 说明 |
 |------|------|------|
@@ -51,4 +64,4 @@
 ---
 
 > **注意**: 华为开发者文档网站使用动态 JavaScript 加载内容，以下链接需在浏览器中打开查看完整内容。
-> 本文档中的内容摘要通过 Web 搜索整理，仅供参考，请以官方文档为准。
+> 本目录中的内容摘要仅用于稳定模式指导。涉及最新 API、SDK 版本、构建工具或设备行为时，请以 DevEco MCP 查询结果或官方文档为准。

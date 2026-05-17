@@ -1,11 +1,22 @@
 # API 参考 (API References)
 
 > 本索引基于 2026-05-14 华为官方最新版文档提取。核心 Kit 包含完整 API 模块列表（模块名 + 中文描述 + 页码）。
+> v3 中本文件仅作为 API 模块定位索引。最新签名、参数、错误码和 SDK 差异应优先使用 DevEco MCP `harmonyos_knowledge_search` 或官方文档确认。
 > 官方入口: <https://developer.huawei.com/consumer/cn/doc/harmonyos-references/development-intro-api>
 
 ---
 
 ## 预备
+
+## MCP 优先查询策略
+
+本文件用于把 API 需求定位到 Kit、模块名和官方页面，不作为最终签名来源。需要最新 API 签名、参数、错误码、权限或 SDK 差异时：
+
+1. 优先调用 DevEco MCP `harmonyos_knowledge_search` 查询当前 SDK/API 知识。
+2. 若 MCP 不可用，使用本文件定位模块名和官方页面，再通过浏览器、Playwright 或 DevEco Studio 离线文档确认。
+3. 如果只能离线生成代码，明确标注 API 细节未实时验证，并请求用户在 DevEco Studio 中执行 ETS 检查或构建。
+
+---
 
 | 文档 | 说明 |
 |------|------|
