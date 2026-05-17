@@ -111,3 +111,18 @@ ohpm install
 - [UI 组件与布局](../05-ui-components.md)
 - [导航路由](../06-navigation.md)
 - [并发 (TaskPool/Worker)](../10-concurrency.md)
+
+---
+
+## 维护校验
+
+发布前建议在仓库根目录运行：
+
+```powershell
+pwsh ./scripts/validate-docs.ps1
+```
+
+该脚本会检查：
+- `references/` 是否完整包含 `01`-`27` 编号文档
+- 关键索引文档是否存在
+- `empty-ability-template/` 关键模板文件是否齐全
