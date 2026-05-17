@@ -906,6 +906,31 @@ struct CardComponent {
 
 ## 组件设计原则与反模式
 
+### ArkTSCheck 主题颜色提示
+
+DevEco Studio may warn: `It is recommended that you use layered parameters for easier color mode switching and theme color changing.` Treat this as a reusable code-quality signal for generated UI.
+
+For repeated UI colors, prefer resource colors over inline hex literals:
+
+```typescript
+// entry/src/main/resources/base/element/color.json
+{
+  "color": [
+    { "name": "accent_blue", "value": "#0A84FF" },
+    { "name": "surface", "value": "#FFFFFF" }
+  ]
+}
+
+// ArkTS
+Text('应用文件')
+  .fontColor($r('app.color.accent_blue'))
+
+Column()
+  .backgroundColor($r('app.color.surface'))
+```
+
+Inline colors are still acceptable for quick prototypes, one-off examples, or values that are easier to understand locally. For experiment apps intended to pass DevEco checks cleanly, move repeated `fontColor`, `backgroundColor`, `border.color`, and status colors into `color.json`.
+
 ### 单一职责原则
 
 每个组件只做一件事，保持组件功能单一、可预测。避免在一个组件中堆砌过多职责。

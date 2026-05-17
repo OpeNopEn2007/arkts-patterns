@@ -55,6 +55,7 @@ console.log('Temp dir:', tempDir);
 
 ```typescript
 import { fileIo } from '@kit.CoreFileKit';
+import { util } from '@kit.ArkTS';
 
 // 1. 创建文件
 async function createFile(): Promise<void> {
@@ -79,7 +80,19 @@ async function readFile(): Promise<void> {
   const filePath = `${context.filesDir}/my_data.txt`;
 
   if (fileIo.accessSync(filePath)) {
-    const content = fileIo.readTextSync(filePath);
+    const stat = fileIo.statSync(filePath);
+      const file = fileIo.openSync(filePath, fileIo.OpenMode.READ_ONLY);
+      let content = '';
+
+      try {
+        const buffer = new ArrayBuffer(stat.size);
+        const bytesRead = fileIo.readSync(file.fd, buffer);
+        const decoder = util.TextDecoder.create('utf-8');
+        content = decoder.decodeToString(new Uint8Array(buffer.slice(0, bytesRead)));
+      } finally {
+        fileIo.closeSync(file);
+      }
+
     console.log('File content:', content);
   } else {
     console.error('File does not exist');
@@ -144,7 +157,16 @@ async function saveToSandbox(content: string, fileName: string): Promise<string>
   const filePath = `${context.filesDir}/${fileName}`;
 
   try {
-    fileIo.writeTextSync(filePath, content);
+    if (fileIo.accessSync(filePath)) {
+      fileIo.unlinkSync(filePath);
+    }
+
+    const file = fileIo.openSync(filePath, fileIo.OpenMode.CREATE | fileIo.OpenMode.READ_WRITE);
+    try {
+      fileIo.writeSync(file.fd, content);
+    } finally {
+      fileIo.closeSync(file);
+    }
     console.log('File saved to sandbox:', filePath);
     return filePath;
   } catch (error) {
@@ -381,6 +403,20 @@ Core File Kit 提供了核心的文件管理能力，是 HarmonyOS 文件系统�
 
 ### 5.2 常用操作
 
+> **DevEco Studio 6.1 note:** for small sandbox text files, prefer `openSync()` + `writeSync()` / `readSync()` with explicit file descriptors. Some SDKs do not expose `fileIo.writeTextSync()` / `fileIo.readTextSync()` even though older examples may mention them. Decode bytes with `util.TextDecoder.create('utf-8')` to avoid Chinese text garbling.
+
+**ArkTSCheck cleanup pattern:** file APIs such as `fileIo.closeSync()` may still be reported as "Function may throw exceptions" when called inside `finally`. Wrap cleanup in a tiny helper with its own `try/catch` instead of calling throwing cleanup APIs bare in `finally`.
+
+```typescript
+function closeFile(file: fileIo.File): void {
+  try {
+    fileIo.closeSync(file);
+  } catch (error) {
+    console.error(`Close file failed: ${JSON.stringify(error)}`);
+  }
+}
+```
+
 ```typescript
 import { fileIo } from '@kit.CoreFileKit';
 import { zlib } from '@kit.CoreFileKit';
@@ -609,7 +645,17 @@ function validateFilePath(filePath: string): boolean {
 function safeReadFile(filePath: string): string | null {
   try {
     if (fileIo.accessSync(filePath)) {
-      return fileIo.readTextSync(filePath);
+      const stat = fileIo.statSync(filePath);
+      const file = fileIo.openSync(filePath, fileIo.OpenMode.READ_ONLY);
+
+      try {
+        const buffer = new ArrayBuffer(stat.size);
+        const bytesRead = fileIo.readSync(file.fd, buffer);
+        const decoder = util.TextDecoder.create('utf-8');
+        return decoder.decodeToString(new Uint8Array(buffer.slice(0, bytesRead)));
+      } finally {
+        fileIo.closeSync(file);
+      }
     }
     return null;
   } catch (error) {
@@ -647,8 +693,8 @@ function cleanupTempFiles(): void {
 | 操作 | API | 同步/异步 |
 |------|-----|-----------|
 | 打开文件 | `fileIo.open()` / `fileIo.openSync()` | 都支持 |
-| 读取文本 | `fileIo.readText()` / `fileIo.readTextSync()` | 都支持 |
-| 写入文本 | `fileIo.writeText()` / `fileIo.writeTextSync()` | 都支持 |
+| 读取文本 | `openSync(READ_ONLY)` + `readSync(fd)` + `util.TextDecoder` | 同步 |
+| 写入文本 | `openSync(CREATE \| READ_WRITE)` + `writeSync(fd)` | 同步 |
 | 创建流 | `fileIo.createStream()` / `fileIo.createStreamSync()` | 都支持 |
 | 复制文件 | `fileIo.copyFile()` / `fileIo.copyFileSync()` | 都支持 |
 | 移动文件 | `fileIo.moveFile()` / `fileIo.moveFileSync()` | 都支持 |
