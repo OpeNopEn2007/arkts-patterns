@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added `skills/arkts-patterns/references/deveco-mcp.example.json` with placeholder-only DevEco MCP configuration using `@deveco-codegenie/mcp@beta`.
 - Added `docs/iterations/` as the case-learning dataset for real ArkTS/HarmonyOS experiments, including the first smart-device-control case record.
 - Added `docs/iterations/ITERATOR.md` as the standalone Case Learning Iterator guide, including clean-room skill experiments and acceptance-criteria discipline.
+- Added project-local Case Learning Iterator development skills and non-mutating hooks for Claude Code and Codex.
 
 ## [2.3.1] - 2026-05-16
 

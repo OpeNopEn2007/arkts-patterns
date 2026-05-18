@@ -12,6 +12,17 @@ Use `docs/iterations/` as the project learning dataset. Each real or high-fideli
 docs/iterations/YYYY-MM-DD-<case-id>.md
 ```
 
+## Project Development Skill
+
+The iterator is supported by project-local development skills and hooks. These are internal plugin-building aids, not part of the published `arkts-patterns` skill.
+
+- Claude Code project skill: `.claude/skills/case-learning-iterator/SKILL.md`.
+- Claude Code project hooks: `.claude/settings.json` and `.claude/hooks/`.
+- Codex repository skill: `.agents/skills/case-learning-iterator/SKILL.md`.
+- Codex project hooks: `.codex/hooks.json` and `.codex/hooks/`.
+- Codex mirror/pointer: `.codex/skills/case-learning-iterator/SKILL.md`.
+
+See `docs/iterations/DEVELOPMENT-SKILL-SPEC.md` for the concept, platform mapping, hook behavior, and acceptance criteria.
 ## Trigger Conditions
 
 Start an iteration record when:

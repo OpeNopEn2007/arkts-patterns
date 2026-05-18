@@ -62,7 +62,8 @@ Passing criteria: Hvigor prints `BUILD SUCCESSFUL` and exits with code `0`.
 
 ## Case Learning Iterator
 
-Use `docs/iterations/ITERATOR.md` for the real-case learning loop, clean-room skill experiments, warning-learning records, acceptance-criteria discipline, and promotion rules. When work comes from a real ArkTS/HarmonyOS case, add or update the matching record under `docs/iterations/`.
+Use `docs/iterations/ITERATOR.md` for the real-case learning loop, clean-room skill experiments, warning-learning records, acceptance-criteria discipline, and promotion rules. Internal development skills and hooks for this loop live under `.claude/`, `.agents/`, and `.codex/`; see `docs/iterations/DEVELOPMENT-SKILL-SPEC.md`. When work comes from a real ArkTS/HarmonyOS case, add or update the matching record under `docs/iterations/`.
+
 ## Change Checklist
 
 Before finalizing documentation or template-related work:

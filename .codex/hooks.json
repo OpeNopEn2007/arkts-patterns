@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .codex/hooks/case_learning_user_prompt.py",
+            "timeout": 10,
+            "statusMessage": "Checking case-learning iterator context"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python .codex/hooks/case_learning_stop.py",
+            "timeout": 10,
+            "statusMessage": "Checking case-learning completion reminders"
+          }
+        ]
+      }
+    ]
+  }
+}
