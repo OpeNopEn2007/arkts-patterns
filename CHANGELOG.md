@@ -16,12 +16,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added the DevEco Studio ASCII-path and Hvigor CLI environment requirements to the agent contract.
 - Corrected file-management guidance for DevEco Studio 6.1 by preferring fd-based text read/write with explicit UTF-8 decoding.
 - Added reusable ArkTSCheck warning guidance for throwing file cleanup APIs and resource-based UI colors.
+- Reframed `docs/iterations/ITERATOR.md` as design background while `iterate` is the execution authority.
+- Renamed iteration reports from dated filenames to case-based filenames such as `file-operation.md`.
 
 ### Added
 - Added `skills/arkts-patterns/references/deveco-mcp.example.json` with placeholder-only DevEco MCP configuration using `@deveco-codegenie/mcp@beta`.
 - Added `docs/iterations/` as the case-learning dataset for real ArkTS/HarmonyOS experiments, including the first smart-device-control case record.
 - Added `docs/iterations/ITERATOR.md` as the standalone Case Learning Iterator guide, including clean-room skill experiments and acceptance-criteria discipline.
 - Added project-local Case Learning Iterator development skills and non-mutating hooks for Claude Code and Codex.
+- Added a Superpowers-style `tests/` evaluation layer with a Claude clean-room runner, skill-triggering checks, explicit skill request checks, docs validation wrapper, and human DevEco Studio E2E checklist generation.
+- Added `.agents/skills/iterate/` as the authority for the engineering-level plugin iteration Skill, with Claude Code and Codex adapter layers.
 
 ## [2.3.1] - 2026-05-16
 
@@ -125,6 +129,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+[Unreleased]: https://github.com/OpeNopEn2007/arkts-patterns/compare/v2.3.1...HEAD
 [2.3.1]: https://github.com/OpeNopEn2007/arkts-patterns/compare/v2.3.0...v2.3.1
 [2.3.0]: https://github.com/OpeNopEn2007/arkts-patterns/compare/v2.2.0...v2.3.0
 [2.2.0]: https://github.com/OpeNopEn2007/arkts-patterns/compare/v2.1.0...v2.2.0

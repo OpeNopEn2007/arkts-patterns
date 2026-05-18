@@ -32,6 +32,7 @@ scripts/validate-docs.ps1                     docs/template integrity checks
 - Do not remove, rename, or restructure `empty-ability-template/` files unless explicitly requested.
 - Do not add secrets, tokens, or credentials to any tracked file.
 - Prefer updating existing docs over creating parallel competing docs.
+- 项目文档、提示词、检查清单、问卷和迭代记录默认使用中文，面向中国开发者；代码标识符、路径、命令和 schema 字段名保留原始英文形式。
 - Keep DevEco Studio test projects and generated experiment projects under ASCII-only paths; some DevEco Studio versions cannot open project paths containing Chinese or other non-ASCII characters.
 - Before CLI Hvigor builds, ensure `DEVECO_SDK_HOME` points to the DevEco SDK root, for example `D:\DevEco Studio\sdk`; after correcting it, stop the Hvigor daemon before retrying.
 - Before configuring or troubleshooting DevEco MCP, check the npm package page at `https://www.npmjs.com/package/@deveco-codegenie/mcp`; if the page is unavailable to tooling, use `npm view @deveco-codegenie/mcp@beta version dist-tags description --json` for current package metadata.
@@ -62,7 +63,7 @@ Passing criteria: Hvigor prints `BUILD SUCCESSFUL` and exits with code `0`.
 
 ## Case Learning Iterator
 
-Use `docs/iterations/ITERATOR.md` for the real-case learning loop, clean-room skill experiments, warning-learning records, acceptance-criteria discipline, and promotion rules. Internal development skills and hooks for this loop live under `.claude/`, `.agents/`, and `.codex/`; see `docs/iterations/DEVELOPMENT-SKILL-SPEC.md`. When work comes from a real ArkTS/HarmonyOS case, add or update the matching record under `docs/iterations/`.
+Use `.agents/skills/iterate/SKILL.md` as the execution authority for the engineering-level plugin iteration loop. `.claude/` and `.codex/` are only adapter layers for hooks/configuration. `docs/iterations/ITERATOR.md` records design background, and `docs/iterations/<case>.md` stores case iteration reports. Do not put this engineering iterator into the published `skills/arkts-patterns/` skill unless a verified general ArkTS lesson is being promoted.
 
 ## Change Checklist
 

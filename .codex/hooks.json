@@ -5,9 +5,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .codex/hooks/case_learning_user_prompt.py",
+            "command": "python .codex/hooks/iterate_user_prompt.py",
             "timeout": 10,
-            "statusMessage": "Checking case-learning iterator context"
+            "statusMessage": "检查 iterate 工程迭代上下文"
           }
         ]
       }
@@ -17,9 +17,9 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .codex/hooks/case_learning_stop.py",
+            "command": "python .codex/hooks/iterate_stop.py",
             "timeout": 10,
-            "statusMessage": "Checking case-learning completion reminders"
+            "statusMessage": "检查 iterate 收尾提醒"
           }
         ]
       }

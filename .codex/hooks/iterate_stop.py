@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Surface a non-blocking Case Learning Iterator completion reminder."""
+"""输出非阻塞的 iterate 收尾提醒。"""
 
 from __future__ import annotations
 
@@ -9,23 +9,22 @@ import sys
 
 
 CASE_TERMS = re.compile(
-    r"(docs/iterations|exam[\\/]|case[- ]?learning|iterator|clean[- ]?room|"
+    r"(docs/iterations|exam[\\/]|case[- ]?learning|iterator|iterate|clean[- ]?room|case-learning-iterator|"
     r"\u5b9e\u9a8c|\u8fed\u4ee3\u5668|\u6c89\u6dc0)",
     re.IGNORECASE,
 )
 
 DONE_TERMS = re.compile(
-    r"(complete|completed|done|fixed|verified|build successful|"
+    r"(complete|completed|done|fixed|verified|build successful|pass|"
     r"\u5b8c\u6210|\u4fee\u590d|\u9a8c\u8bc1|\u901a\u8fc7)",
     re.IGNORECASE,
 )
 
 
 MESSAGE = (
-    "Case Learning Iterator completion check: before finalizing, make sure the "
-    "matching docs/iterations record includes acceptance criteria, commands or "
-    "manual checks run, reviewer verification, failure classification, and any "
-    "accepted or rejected promotion decisions."
+    "iterate 收尾检查：最终回复前，请确认本次工作没有把工程迭代器机制写入发布 Skill；"
+    "如涉及案例实验，请确认记录了验收标准、runner 独立性、reviewer 验证、人类 E2E 状态、"
+    "失败分类和经验提升决策。人工 E2E 未完成时不要标记 Pass。"
 )
 
 
@@ -43,3 +42,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

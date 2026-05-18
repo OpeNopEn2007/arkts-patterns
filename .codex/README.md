@@ -1,22 +1,23 @@
-# Codex Project Automation
+# Codex 项目自动化
 
-This directory contains Codex-specific project automation for building and improving the `arkts-patterns` plugin.
+这个目录存放用于构建和改进 `arkts-patterns` 插件的 Codex 项目自动化配置。
 
-## Repository Skill Location
+## 仓库级 Skill 位置
 
-Codex discovers repository skills from `.agents/skills/`, so the active project development skill lives at:
+Codex 从 `.agents/skills/` 发现仓库级 Skill，因此工程级迭代器 Skill 的权威位置是：
 
 ```text
-.agents/skills/case-learning-iterator/SKILL.md
+.agents/skills/iterate/SKILL.md
 ```
 
-`.codex/skills/case-learning-iterator/SKILL.md` is a local mirror and pointer for people who expect Codex-related material under `.codex/`.
+`.codex/` 只保留 Codex Hook、配置和说明，不作为 Codex Skill 自动发现入口。
 
 ## Hooks
 
-`hooks.json` wires non-mutating reminders into:
+`hooks.json` 把非变更型提醒接入：
 
-- `UserPromptSubmit`: when a prompt looks like an experiment, clean-room run, or lesson-preservation request.
-- `Stop`: when a response looks complete and should be checked against the iterator before finalizing.
+- `UserPromptSubmit`：当 prompt 看起来像实验、clean-room 运行或经验沉淀请求时，提醒使用 `iterate`。
+- `Stop`：当回答看起来已经完成时，提醒按 `iterate` 的工程护栏检查再收尾。
 
-The hook scripts only emit JSON context/reminders. They do not edit files or promote lessons automatically.
+Hook 脚本只输出 JSON 上下文或提醒。它们不会编辑文件，也不会自动提升经验。
+

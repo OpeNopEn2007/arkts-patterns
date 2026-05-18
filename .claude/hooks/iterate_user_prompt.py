@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Inject Case Learning Iterator context for experiment-like prompts."""
+"""为实验类 prompt 注入 iterate 工程 Skill 上下文。"""
 
 from __future__ import annotations
 
@@ -9,19 +9,18 @@ import sys
 
 
 TRIGGERS = re.compile(
-    r"(exam[\\/]|clean[- ]?room|case[- ]?learning|iterator|iteration|"
-    r"experiment|arktscheck|warning learning|skill test|"
+    r"(exam[\\/]|clean[- ]?room|case[- ]?learning|iterator|iterate|iteration|"
+    r"experiment|arktscheck|warning learning|skill test|case-learning-iterator|"
     r"\u5b9e\u9a8c|\u8fed\u4ee3\u5668|\u6c89\u6dc0|\u8b66\u544a|\u6d4b\u8bd5skill|\u5b50\u667a\u80fd\u4f53)",
     re.IGNORECASE,
 )
 
 
 MESSAGE = (
-    "Case Learning Iterator reminder: this prompt looks like an ArkTS/HarmonyOS "
-    "experiment or skill-learning case. Use docs/iterations/ITERATOR.md, define "
-    "workflow-level acceptance criteria before implementation, prefer a clean-room "
-    "runner for skill-effectiveness claims, and record verification plus promotion "
-    "decisions under docs/iterations/."
+    "iterate 提醒：这个 prompt 看起来像 ArkTS/HarmonyOS 实验或插件迭代案例。"
+    "请使用 /iterate 或 Codex 仓库 Skill `iterate`，并以 .agents/skills/iterate/SKILL.md 为执行权威；"
+    "在实现前定义工作流级验收标准，避免向 clean-room runner 泄露历史修复结论；"
+    "人类 DevEco Studio E2E 完成前不要标记 Pass。"
 )
 
 
@@ -52,3 +51,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

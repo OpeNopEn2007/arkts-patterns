@@ -4,6 +4,7 @@ node_modules/
 # IDE
 .idea/
 .vscode/
+.claude/settings.local.json
 *.swp
 *.swo
 
@@ -19,4 +20,5 @@ build/
 *.tmp
 *.temp
 .cache/
+tmp/
 exam/

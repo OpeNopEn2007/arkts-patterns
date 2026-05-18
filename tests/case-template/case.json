@@ -1,0 +1,70 @@
+{
+  "caseId": "{{CASE_ID}}",
+  "sourceProject": "{{SOURCE_PROJECT}}",
+  "prompt": "{{CASE_TESTS_DIR}}/runner-prompt.md",
+  "appOutputDir": "tmp/newApp",
+  "maxTurns": 20,
+  "permission": "dangerously-skip",
+  "outputFormat": "json",
+  "diffPaths": [
+    "entry/src",
+    "entry/src/main/module.json5",
+    "AppScope/app.json5",
+    "build-profile.json5",
+    "entry/build-profile.json5",
+    "oh-package.json5",
+    "entry/oh-package.json5"
+  ],
+  "build": {
+    "cwd": ".",
+    "command": "\"D:\\DevEco Studio\\tools\\node\\node.exe\" \"D:\\DevEco Studio\\tools\\hvigor\\bin\\hvigorw.js\" --mode module -p module=entry@default -p product=default PreviewBuild --analyze=normal --parallel --incremental",
+    "env": {
+      "DEVECO_SDK_HOME": "D:\\DevEco Studio\\sdk"
+    },
+    "successText": "BUILD SUCCESSFUL"
+  },
+  "acceptanceCriteria": [
+    "阅读 {{CASE_ID}} 的实验材料，明确功能需求和验收标准。",
+    "使用 arkts-patterns Skill 指导实现，不依赖主对话历史结论。",
+    "完成实现后自行运行配置中的 Hvigor 构建命令。",
+    "最终报告修改文件、构建结果、警告处理情况和未验证项。",
+    "人工 DevEco Studio E2E 完成前，结果保持 Pending human E2E。"
+  ],
+  "humanE2E": {
+    "tool": "DevEco Studio Previewer",
+    "setup": [
+      "在 DevEco Studio 中打开 clean-room 输出项目 tmp/newApp/。",
+      "等待项目索引和 Preview 构建完成。",
+      "打开目标页面并确认界面可交互。"
+    ],
+    "checklist": [
+      {
+        "id": "primary-acceptance-flow",
+        "action": "按本实验的主要用户路径操作一次；如果模板尚未本地化，请先把这里替换为具体步骤。",
+        "expected": "主要功能满足实验要求，关键文本、状态和反馈正确。",
+        "score": "0-2"
+      },
+      {
+        "id": "edge-case-feedback",
+        "action": "尝试一个空输入、非法输入或未准备状态下的操作。",
+        "expected": "应用给出友好反馈，不崩溃，不出现明显乱码。",
+        "score": "0-2"
+      },
+      {
+        "id": "ui-basic-usability",
+        "action": "把所有可见按钮、输入框、标签页或列表项至少操作一次。",
+        "expected": "没有明显布局破损、无响应控件或令人困惑的反馈。",
+        "score": "0-2"
+      }
+    ],
+    "questionnaire": [
+      "应用是否满足本实验的主要验收标准？是 / 否",
+      "哪些检查项失败了？",
+      "是否出现任何文本乱码？",
+      "DevEco Studio 是否显示 ArkTSCheck 警告？",
+      "Previewer 是否崩溃、卡死或无法刷新？",
+      "总体评分 0 到 10 分",
+      "对 arkts-patterns 插件改进的备注"
+    ]
+  }
+}

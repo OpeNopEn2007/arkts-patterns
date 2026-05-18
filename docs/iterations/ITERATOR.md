@@ -1,155 +1,91 @@
-# Case Learning Iterator
+# iterate 设计记录
 
-This document defines the learning loop for improving `arkts-patterns` through real ArkTS/HarmonyOS cases.
+本文记录 `arkts-patterns` 仓库工程级迭代器的设计背景、讨论结论和机制演进。
 
-The goal is to treat each case as training data: raw requirement, runner output, reviewer verification, failures, fixes, and reusable lessons. Only generalized, verified lessons should be promoted into `SKILL.md`, `references/`, templates, scripts, or README files.
-
-## Dataset
-
-Use `docs/iterations/` as the project learning dataset. Each real or high-fidelity ArkTS/HarmonyOS case gets one dated record:
+执行权威不是本文，而是：
 
 ```text
-docs/iterations/YYYY-MM-DD-<case-id>.md
+.agents/skills/iterate/SKILL.md
 ```
 
-## Project Development Skill
+Claude Code 通过 `.claude/skills/iterate/SKILL.md` 适配 `/iterate`；Codex 通过 `.agents/skills/iterate/` 自动发现仓库级 Skill。`.codex/` 只保留 Hook 和配置适配。
 
-The iterator is supported by project-local development skills and hooks. These are internal plugin-building aids, not part of the published `arkts-patterns` skill.
+## 定位
 
-- Claude Code project skill: `.claude/skills/case-learning-iterator/SKILL.md`.
-- Claude Code project hooks: `.claude/settings.json` and `.claude/hooks/`.
-- Codex repository skill: `.agents/skills/case-learning-iterator/SKILL.md`.
-- Codex project hooks: `.codex/hooks.json` and `.codex/hooks/`.
-- Codex mirror/pointer: `.codex/skills/case-learning-iterator/SKILL.md`.
+`iterate` 是开发 `arkts-patterns` 插件的工程工具，不是发布插件功能。
 
-See `docs/iterations/DEVELOPMENT-SKILL-SPEC.md` for the concept, platform mapping, hook behavior, and acceptance criteria.
-## Trigger Conditions
+它服务插件开发者，用来把真实 ArkTS/HarmonyOS 实验案例转化为可验证、可审查、可沉淀的学习样本。它不应被写入 `skills/arkts-patterns/` 的用户使用流程。
 
-Start an iteration record when:
+## 设计动机
 
-- A case uses `arkts-patterns` to solve a real ArkTS/HarmonyOS development task.
-- The case exposes a missing, unclear, stale, or misleading skill/reference/template instruction.
-- A DevEco Studio, Hvigor, SDK, scaffold, template, or project-structure issue is discovered.
-- DevEco Studio or ArkTSCheck emits warnings that affect generated-code quality.
-- The user asks to preserve a lesson for future plugin improvement.
+我们希望用类似监督学习的方式迭代插件：
 
-## Standard Iteration Loop
+1. 用户把真实实验案例放到 `exam/<case>/`。
+2. Codex 触发 `iterate`。
+3. 系统生成案例级测试资产。
+4. 干净 ClaudeCode runner 独立开发和构建。
+5. 人类开发者在 DevEco Studio 中做 E2E 验收。
+6. Codex 根据 runner 产物、人类反馈和审查结果判断是否改进插件。
+7. 只有验证过的通用经验才进入发布 Skill 或 references。
 
-For each iteration:
+这样可以避免主对话上下文污染，真实衡量 `arkts-patterns` 对干净 agent 的指导效果。
 
-1. Record the case background, environment, goal, relevant files, observed problem, solution, verification, and reusable learning.
-2. Classify the learning target: `SKILL.md`, `references/`, `empty-ability-template/`, `scripts/scaffold.sh`, README files, CHANGELOG, or case-only.
-3. Treat each learning as an update candidate before editing core docs. Include evidence, scope, and risk.
-4. Apply the smallest useful patch only when the lesson has general value.
-5. Keep business-specific logic, private details, unverified guesses, and one-off workarounds out of `SKILL.md` and `references/`.
-6. Prefer the three-case rule for ordinary patterns: unless the lesson is an obvious bug, official rule, or high-risk trap, keep it as a candidate until repeated evidence appears.
-7. After docs/template updates, run `pwsh ./scripts/validate-docs.ps1`; after template/scaffold/build changes, run the relevant scaffold or Hvigor verification.
-8. Record both accepted and rejected learnings, with the reason.
-
-## Clean-Room Skill Experiment
-
-Use clean-room runs as the preferred way to test whether `arkts-patterns` itself is effective.
-
-In a clean-room run, the main conversation acts as experiment coordinator and reviewer, not the implementer:
-
-1. Define the case directory, raw requirement assets, and explicit acceptance criteria before implementation starts.
-2. Spawn a fresh subagent without forking the current long conversation context.
-3. Give the subagent only the experiment directory, the relevant `arkts-patterns` skill/references, and the acceptance criteria.
-4. Do not leak prior debugging conclusions, hidden fixes, or lessons from the current conversation into the runner prompt.
-5. The subagent develops the case independently and reports files changed, assumptions, commands run, failures, and verification results.
-6. The main conversation then runs verification, reviews the diff, performs manual DevEco/Preview checks when needed, and records the outcome in `docs/iterations/`.
-7. Classify failures by cause: missing skill guidance, stale reference, ambiguous requirement, runner mistake, or environment issue.
-8. Only promote learnings to `SKILL.md`, `references/`, templates, or README files after reviewer-side evidence confirms the root cause.
-
-Non-clean-room work is still useful for diagnosis and repair, but it does not by itself prove the skill works for a fresh agent.
-
-## Acceptance Criteria Discipline
-
-Before a runner starts, write workflow-level acceptance criteria. Build success alone is not enough.
-
-Good AC example:
+## 最终结构
 
 ```text
-Input `123我爱南开`.
-Click save.
-Click read.
-The file-content area must display exactly `123我爱南开`.
-Chinese text must not be garbled.
-Hvigor PreviewBuild must finish with BUILD SUCCESSFUL.
+.agents/skills/iterate/SKILL.md      iterate Skill 权威源
+.claude/skills/iterate/SKILL.md      Claude Code /iterate 适配副本
+.claude/settings.json                Claude Code Hook 配置
+.claude/hooks/                       Claude Code Hook 脚本
+.codex/hooks.json                    Codex Hook 配置
+.codex/hooks/                        Codex Hook 脚本
+tests/                               全局模板和 harness 源
+exam/<case>/tests/                   某个案例的本地化测试资产
+docs/iterations/<case>.md            案例迭代报告
+tmp/newApp/                          最新 App 临时产物
 ```
 
-Avoid vague AC such as "implement file read/write" or "make the page work".
+## 关键决策
 
-## Warning Learning Format
+- `.agents/skills/iterate/SKILL.md` 是唯一允许手工编辑的 Skill 源。
+- `.claude/skills/iterate/SKILL.md` 与 `.agents` 同步，用于 Claude Code 项目 Skill 和 `/iterate`。
+- `.codex/skills/` 不作为 Codex 自动发现入口；Codex 使用 `.agents/skills/`。
+- `docs/iterations/` 记录设计背景和案例报告，不再承载执行规范权威。
+- 本阶段不做 LSP、DevEco MCP 或实时 ArkTSCheck 诊断增强，先把迭代闭环做扎实。
+- 文档、prompt、检查清单、问卷和报告默认中文。
 
-DevEco/ArkTSCheck warnings are useful training data. Record:
+## 标准案例流
 
-- Warning text.
-- Triggering file and line.
-- Code pattern that caused it.
-- Fix applied.
-- Rebuild result.
-- Whether the warning disappeared.
-- Whether the lesson should be promoted or kept as case-only.
+用户在新对话中说：
 
-## Record Template
-
-```markdown
-# <Case Title>
-
-- **Date**:
-- **Case ID**:
-- **Project Type**:
-- **HarmonyOS / API Version**:
-- **DevEco Studio Version**:
-- **Primary Goal**:
-- **Relevant Files / Modules**:
-- **Initial Prompt / User Need**:
-- **Experiment Mode**: Clean-room / Main-thread diagnostic / Manual repair
-- **Runner Context**:
-- **Acceptance Criteria Given To Runner**:
-
-## Clean-Room Run
-
-- **Runner Type**:
-- **Prompt Given To Runner**:
-- **Skill / References Provided**:
-- **Runner Output Summary**:
-- **Runner Files Changed**:
-- **Runner Verification Claimed**:
-- **Reviewer Verification Result**:
-- **Failure Classification**:
-
-## Observed Problem
-
-## Root Cause
-
-## Solution Applied
-
-## Verification Performed
-
-## Reusable Learning
-
-## Recommended Plugin Update
-
-- **Target**:
-- **Update Type**:
-- **Proposed Change**:
-- **Evidence**:
-- **Scope**:
-- **Risk / Overfitting Check**:
-
-## Accepted Learnings
-
-## Rejected Learnings
-
-## Follow-Up Needed
+```text
+@exam/new/，新的实验案例，进行测试和迭代
 ```
 
-## Promotion Rules
+`iterate` 的目标链路：
 
-- Promote obvious bugs, official rules, and high-risk traps immediately when evidence is strong.
-- For ordinary patterns, prefer repeated evidence from multiple cases before turning them into strong rules.
-- Keep business-specific logic, private details, and unverified guesses in the case record only.
-- `SKILL.md` should contain orchestration and decision rules; detailed technique belongs in `references/`.
-- Prefer clean-room runs for skill effectiveness claims. Main-thread diagnostic work can repair cases and discover lessons, but should be labeled as non-clean-room evidence.
+1. 识别 `exam/new/`。
+2. 读取需求资料和可用项目资产。
+3. 从 `tests/case-template/` 生成 `exam/new/tests/`。
+4. 生成中文 runner prompt、人类 E2E 清单和评分准则。
+5. 启动 clean-room ClaudeCode runner。
+6. 将最新 App 输出到 `tmp/newApp/`。
+7. Claude 运行期间 Codex 不介入。
+8. Claude 完成后 Codex 进入 reviewer 阶段。
+9. 人类开发者在 DevEco Studio 中打开 `tmp/newApp/` 并填写反馈。
+10. Codex 根据反馈决定是否提升经验到 `skills/arkts-patterns/`。
+11. 写入 `docs/iterations/<case>.md`。
+12. 如果失败，先询问是否进入二轮循环。
+
+## 经验提升规则
+
+- 明显 bug、官方规则和高风险陷阱，在证据充分时可以立即提升。
+- 普通模式优先等待多个案例的重复证据，再变成强规则。
+- 业务特定逻辑、隐私细节和未经验证的猜测，只保留在案例记录或 `exam/<case>/tests/`。
+- `SKILL.md` 应包含编排和决策规则；详细技术内容放在 `references/`。
+- clean-room 运行优先用于 Skill 有效性声明；主线程诊断只能作为辅助证据。
+
+## 历史说明
+
+本机制最初以 `case-learning-iterator` 命名，并由 `docs/iterations/ITERATOR.md` 承载完整操作流程。后续为了更好利用 Skill 触发机制，改为短名 `iterate`，并将执行权威迁移到 `.agents/skills/iterate/SKILL.md`。
+

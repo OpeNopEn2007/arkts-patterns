@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/case_learning_user_prompt.py",
+            "command": "python .claude/hooks/iterate_user_prompt.py",
             "timeout": 10
           }
         ]
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python .claude/hooks/case_learning_stop.py",
+            "command": "python .claude/hooks/iterate_stop.py",
             "timeout": 10
           }
         ]

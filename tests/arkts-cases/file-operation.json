@@ -1,0 +1,70 @@
+{
+  "caseId": "file-operation",
+  "sourceProject": "exam/file-operation/FileOperationApp",
+  "prompt": "tests/arkts-cases/prompts/file-operation.md",
+  "maxTurns": 20,
+  "permission": "dangerously-skip",
+  "outputFormat": "json",
+  "diffPaths": [
+    "entry/src",
+    "entry/src/main/module.json5",
+    "AppScope/app.json5",
+    "build-profile.json5",
+    "entry/build-profile.json5",
+    "oh-package.json5",
+    "entry/oh-package.json5"
+  ],
+  "build": {
+    "cwd": ".",
+    "command": "\"D:\\DevEco Studio\\tools\\node\\node.exe\" \"D:\\DevEco Studio\\tools\\hvigor\\bin\\hvigorw.js\" --mode module -p module=entry@default -p product=default PreviewBuild --analyze=normal --parallel --incremental",
+    "env": {
+      "DEVECO_SDK_HOME": "D:\\DevEco Studio\\sdk"
+    },
+    "successText": "BUILD SUCCESSFUL"
+  },
+  "acceptanceCriteria": [
+    "输入 `123我爱南开`。",
+    "点击保存。",
+    "点击读取。",
+    "文件内容区域必须显示完全一致的 `123我爱南开`。",
+    "中文文本不能乱码。",
+    "Hvigor PreviewBuild 退出码为 0，并且日志包含 `BUILD SUCCESSFUL`。"
+  ],
+  "humanE2E": {
+    "tool": "DevEco Studio Previewer",
+    "setup": [
+      "在 DevEco Studio 中打开生成的 clean-room 工作区。",
+      "等待项目索引和 Preview 构建完成。",
+      "在 Previewer 中打开目标页面。"
+    ],
+    "checklist": [
+      {
+        "id": "save-read-chinese-text",
+        "action": "输入 `123我爱南开`，点击保存，然后点击读取。",
+        "expected": "文件内容区域显示完全一致的 `123我爱南开`，且没有乱码。",
+        "score": "0-2"
+      },
+      {
+        "id": "empty-read-message",
+        "action": "清除应用数据或使用全新运行状态，在未保存前点击读取。",
+        "expected": "应用显示友好的“尚未保存”提示，并且不崩溃。",
+        "score": "0-2"
+      },
+      {
+        "id": "ui-basic-usability",
+        "action": "把所有可见按钮和标签页各操作一次。",
+        "expected": "没有明显布局破损、无响应控件或令人困惑的反馈。",
+        "score": "0-2"
+      }
+    ],
+    "questionnaire": [
+      "应用是否满足上述验收标准？是 / 否",
+      "哪些检查项失败了？",
+      "是否出现任何文本乱码？",
+      "DevEco Studio 是否显示 ArkTSCheck 警告？",
+      "Previewer 是否崩溃、卡死或无法刷新？",
+      "总体评分 0 到 10 分",
+      "对插件改进的备注"
+    ]
+  }
+}

@@ -1,25 +1,26 @@
-# Case Learning Iterations
+# 案例学习迭代记录
 
-This directory is the learning dataset for `arkts-patterns`.
+这个目录是 `arkts-patterns` 的学习数据集。
 
-Each real or high-fidelity ArkTS/HarmonyOS case gets one dated record. Records capture evidence and reusable lessons before those lessons are promoted into `SKILL.md`, `references/`, templates, scripts, or README files.
+每个真实或高保真 ArkTS/HarmonyOS 案例都对应一份按 case 命名的记录。记录先保存证据和可复用经验，再决定是否把经验提升到 `SKILL.md`、`references/`、模板、脚本或 README。
 
-See [ITERATOR.md](./ITERATOR.md) for the full iteration mechanism, including clean-room skill experiments, acceptance-criteria discipline, warning learning, and promotion rules.
+设计背景见 [ITERATOR.md](./ITERATOR.md)。实际执行规范以 `.agents/skills/iterate/SKILL.md` 为准。
 
-## Naming
+## 命名
 
-Use:
-
-```text
-YYYY-MM-DD-<case-id>.md
-```
-
-Example:
+使用：
 
 ```text
-2026-05-17-smart-device-control.md
+<case-id>.md
+<case-id>-v2.md
 ```
 
-## Promotion Rules
+示例：
 
-Promotion rules live in [ITERATOR.md](./ITERATOR.md#promotion-rules).
+```text
+smart-device-control.md
+```
+
+## 经验提升规则
+
+经验提升规则见 [ITERATOR.md](./ITERATOR.md#经验提升规则)，执行时以 `.agents/skills/iterate/SKILL.md` 为准。
